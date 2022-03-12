@@ -1,13 +1,13 @@
-package com.hlju.onlineshop.stock;
+package com.hlju.onlineshop.warehouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OnlineShopStockApplication {
+public class OnlineShopWarehouseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OnlineShopStockApplication.class, args);
+        SpringApplication.run(OnlineShopWarehouseApplication.class, args);
     }
 
 }

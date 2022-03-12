@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hlju.onlineshop</groupId>
-    <artifactId>onlineshop-stock</artifactId>
+    <artifactId>onlineshop-warehouse</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>onlineshop-stock</name>
-    <description>Demo project for Spring Boot</description>
+    <name>onlineshop-warehouse</name>
+    <description>仓储服务</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
