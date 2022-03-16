@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlju.onlineshop.goods.dao.SpuInfoDescDao">
+
+    <resultMap type="com.hlju.onlineshop.goods.entity.SpuInfoDescEntity" id="spuInfoDescMap">
+        <result property="spuId" column="spu_id"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+</mapper>

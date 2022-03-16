@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlju.onlineshop.user.dao.UserLoginLogDao">
+
+    <resultMap type="com.hlju.onlineshop.user.entity.UserLoginLogEntity" id="userLoginLogMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="ip" column="ip"/>
+        <result property="city" column="city"/>
+        <result property="loginType" column="login_type"/>
+    </resultMap>
+
+
+</mapper>

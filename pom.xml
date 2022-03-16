@@ -16,6 +16,13 @@
         <module>onlineshop-order</module>
         <module>onlineshop-warehouse</module>
         <module>onlineshop-user</module>
+        <module>onlineshop-common</module>
+        <module>onlineshop-gateway</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlju.onlineshop.warehouse.dao.WarehouseSkuDao">
+
+    <resultMap type="com.hlju.onlineshop.warehouse.entity.WarehouseSkuEntity" id="warehouseSkuMap">
+        <result property="id" column="id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="warehouseId" column="warehouse_id"/>
+        <result property="stock" column="stock"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="stockLocked" column="stock_locked"/>
+    </resultMap>
+
+
+</mapper>
