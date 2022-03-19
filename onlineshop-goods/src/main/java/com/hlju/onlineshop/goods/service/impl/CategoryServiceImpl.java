@@ -1,9 +1,9 @@
 package com.hlju.onlineshop.goods.service.impl;
 
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,19 +61,25 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         //             .collect(Collectors.toList());
         //     parent.setChildren(children);
         // });
-        level1List.forEach(item -> item.setChildren(this.getChildren(item, entities)));
-        return level1List;
+        return level1List.stream()
+                .peek(menu -> menu.setChildren(this.getChildren(menu, entities)))
+                .sorted(Comparator.comparing(CategoryEntity::getSort))
+                .collect(Collectors.toList());
     }
 
+    /**
+     * 获取子分类
+     *
+     * @param currentCategory 当前分类
+     * @param allCategory     所有分类的列表
+     * @return 子分类
+     */
     private List<CategoryEntity> getChildren(CategoryEntity currentCategory, List<CategoryEntity> allCategory) {
-        List<CategoryEntity> children = Lists.newArrayList();
-        allCategory.forEach(category -> {
-            if (currentCategory.getCatId().equals(category.getParentCid())) {
-                category.setChildren(this.getChildren(category, allCategory));
-                children.add(category);
-            }
-        });
-        return children;
+        return allCategory.stream()
+                .filter(category -> currentCategory.getCatId().equals(category.getParentCid()))
+                .peek(menu -> menu.setChildren(this.getChildren(menu, allCategory)))
+                .sorted(Comparator.comparing(CategoryEntity::getSort))
+                .collect(Collectors.toList());
     }
 
 }

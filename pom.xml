@@ -18,6 +18,7 @@
         <module>onlineshop-user</module>
         <module>onlineshop-common</module>
         <module>onlineshop-gateway</module>
+        <module>renren-fast</module>
     </modules>
 
     <dependencyManagement>
