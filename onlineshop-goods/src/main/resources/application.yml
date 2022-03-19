@@ -10,8 +10,6 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-  application:
-    name: onlineshop-goods
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
