@@ -44,7 +44,7 @@ public class HomeSubjectController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            HomeSubjectEntity homeSubject = homeSubjectService.getById(id);
+        HomeSubjectEntity homeSubject = homeSubjectService.getById(id);
 
         return R.ok().put("homeSubject", homeSubject);
     }
@@ -54,7 +54,7 @@ public class HomeSubjectController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody HomeSubjectEntity homeSubject) {
-            homeSubjectService.save(homeSubject);
+        homeSubjectService.save(homeSubject);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class HomeSubjectController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody HomeSubjectEntity homeSubject) {
-            homeSubjectService.updateById(homeSubject);
+        homeSubjectService.updateById(homeSubject);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class HomeSubjectController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            homeSubjectService.removeByIds(Arrays.asList(ids));
+        homeSubjectService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

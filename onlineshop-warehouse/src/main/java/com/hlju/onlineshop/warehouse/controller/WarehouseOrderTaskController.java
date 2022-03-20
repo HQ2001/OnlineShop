@@ -44,7 +44,7 @@ public class WarehouseOrderTaskController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            WarehouseOrderTaskEntity warehouseOrderTask = warehouseOrderTaskService.getById(id);
+        WarehouseOrderTaskEntity warehouseOrderTask = warehouseOrderTaskService.getById(id);
 
         return R.ok().put("warehouseOrderTask", warehouseOrderTask);
     }
@@ -54,7 +54,7 @@ public class WarehouseOrderTaskController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody WarehouseOrderTaskEntity warehouseOrderTask) {
-            warehouseOrderTaskService.save(warehouseOrderTask);
+        warehouseOrderTaskService.save(warehouseOrderTask);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class WarehouseOrderTaskController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody WarehouseOrderTaskEntity warehouseOrderTask) {
-            warehouseOrderTaskService.updateById(warehouseOrderTask);
+        warehouseOrderTaskService.updateById(warehouseOrderTask);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class WarehouseOrderTaskController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            warehouseOrderTaskService.removeByIds(Arrays.asList(ids));
+        warehouseOrderTaskService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

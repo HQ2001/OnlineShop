@@ -44,7 +44,7 @@ public class SkuInfoController {
      */
     @RequestMapping("/info/{skuId}")
     public R info(@PathVariable("skuId") Long skuId) {
-            SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+        SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 
         return R.ok().put("skuInfo", skuInfo);
     }
@@ -54,7 +54,7 @@ public class SkuInfoController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody SkuInfoEntity skuInfo) {
-            skuInfoService.save(skuInfo);
+        skuInfoService.save(skuInfo);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class SkuInfoController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody SkuInfoEntity skuInfo) {
-            skuInfoService.updateById(skuInfo);
+        skuInfoService.updateById(skuInfo);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class SkuInfoController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] skuIds) {
-            skuInfoService.removeByIds(Arrays.asList(skuIds));
+        skuInfoService.removeByIds(Arrays.asList(skuIds));
 
         return R.ok();
     }

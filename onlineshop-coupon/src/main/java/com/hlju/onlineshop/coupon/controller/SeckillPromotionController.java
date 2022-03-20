@@ -44,7 +44,7 @@ public class SeckillPromotionController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            SeckillPromotionEntity seckillPromotion = seckillPromotionService.getById(id);
+        SeckillPromotionEntity seckillPromotion = seckillPromotionService.getById(id);
 
         return R.ok().put("seckillPromotion", seckillPromotion);
     }
@@ -54,7 +54,7 @@ public class SeckillPromotionController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody SeckillPromotionEntity seckillPromotion) {
-            seckillPromotionService.save(seckillPromotion);
+        seckillPromotionService.save(seckillPromotion);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class SeckillPromotionController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody SeckillPromotionEntity seckillPromotion) {
-            seckillPromotionService.updateById(seckillPromotion);
+        seckillPromotionService.updateById(seckillPromotion);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class SeckillPromotionController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            seckillPromotionService.removeByIds(Arrays.asList(ids));
+        seckillPromotionService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

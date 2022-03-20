@@ -44,7 +44,7 @@ public class GoodAttrValueController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            GoodAttrValueEntity goodAttrValue = goodAttrValueService.getById(id);
+        GoodAttrValueEntity goodAttrValue = goodAttrValueService.getById(id);
 
         return R.ok().put("goodAttrValue", goodAttrValue);
     }
@@ -54,7 +54,7 @@ public class GoodAttrValueController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody GoodAttrValueEntity goodAttrValue) {
-            goodAttrValueService.save(goodAttrValue);
+        goodAttrValueService.save(goodAttrValue);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class GoodAttrValueController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody GoodAttrValueEntity goodAttrValue) {
-            goodAttrValueService.updateById(goodAttrValue);
+        goodAttrValueService.updateById(goodAttrValue);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class GoodAttrValueController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            goodAttrValueService.removeByIds(Arrays.asList(ids));
+        goodAttrValueService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -44,7 +44,7 @@ public class RefundInfoController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            RefundInfoEntity refundInfo = refundInfoService.getById(id);
+        RefundInfoEntity refundInfo = refundInfoService.getById(id);
 
         return R.ok().put("refundInfo", refundInfo);
     }
@@ -54,7 +54,7 @@ public class RefundInfoController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody RefundInfoEntity refundInfo) {
-            refundInfoService.save(refundInfo);
+        refundInfoService.save(refundInfo);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class RefundInfoController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody RefundInfoEntity refundInfo) {
-            refundInfoService.updateById(refundInfo);
+        refundInfoService.updateById(refundInfo);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class RefundInfoController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            refundInfoService.removeByIds(Arrays.asList(ids));
+        refundInfoService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -39,7 +39,7 @@ public class DynamicDataSourceConfig {
         return dynamicDataSource;
     }
 
-    private Map<Object, Object> getDynamicDataSource(){
+    private Map<Object, Object> getDynamicDataSource() {
         Map<String, DataSourceProperties> dataSourcePropertiesMap = properties.getDatasource();
         Map<Object, Object> targetDataSources = new HashMap<>(dataSourcePropertiesMap.size());
         dataSourcePropertiesMap.forEach((k, v) -> {

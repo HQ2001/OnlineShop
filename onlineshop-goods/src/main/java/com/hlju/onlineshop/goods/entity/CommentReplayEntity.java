@@ -5,11 +5,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * 商品评价回复关系
- * 
+ *
  * @author haoqiang
  * @email 3277427547@qq.com
  * @date 2022-03-14 11:13:55
@@ -17,20 +18,20 @@ import lombok.Data;
 @Data
 @TableName("gms_comment_replay")
 public class CommentReplayEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
-	/**
-	 * 评论id
-	 */
-	private Long commentId;
-	/**
-	 * 回复id
-	 */
-	private Long replyId;
+    /**
+     * id
+     */
+    @TableId
+    private Long id;
+    /**
+     * 评论id
+     */
+    private Long commentId;
+    /**
+     * 回复id
+     */
+    private Long replyId;
 
 }

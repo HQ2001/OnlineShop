@@ -16,8 +16,8 @@ public class SysConfigRedis {
     private RedisUtils redisUtils;
 
     public void saveOrUpdate(SysConfigEntity config) {
-        if(config == null){
-            return ;
+        if (config == null) {
+            return;
         }
         String key = RedisKeys.getSysConfigKey(config.getParamKey());
         redisUtils.set(key, config);
@@ -28,7 +28,7 @@ public class SysConfigRedis {
         redisUtils.delete(key);
     }
 
-    public SysConfigEntity get(String configKey){
+    public SysConfigEntity get(String configKey) {
         String key = RedisKeys.getSysConfigKey(configKey);
         return redisUtils.get(key, SysConfigEntity.class);
     }

@@ -44,7 +44,7 @@ public class WarehouseSkuController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            WarehouseSkuEntity warehouseSku = warehouseSkuService.getById(id);
+        WarehouseSkuEntity warehouseSku = warehouseSkuService.getById(id);
 
         return R.ok().put("warehouseSku", warehouseSku);
     }
@@ -54,7 +54,7 @@ public class WarehouseSkuController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody WarehouseSkuEntity warehouseSku) {
-            warehouseSkuService.save(warehouseSku);
+        warehouseSkuService.save(warehouseSku);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class WarehouseSkuController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody WarehouseSkuEntity warehouseSku) {
-            warehouseSkuService.updateById(warehouseSku);
+        warehouseSkuService.updateById(warehouseSku);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class WarehouseSkuController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            warehouseSkuService.removeByIds(Arrays.asList(ids));
+        warehouseSkuService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

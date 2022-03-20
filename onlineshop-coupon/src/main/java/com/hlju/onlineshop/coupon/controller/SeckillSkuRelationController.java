@@ -44,7 +44,7 @@ public class SeckillSkuRelationController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            SeckillSkuRelationEntity seckillSkuRelation = seckillSkuRelationService.getById(id);
+        SeckillSkuRelationEntity seckillSkuRelation = seckillSkuRelationService.getById(id);
 
         return R.ok().put("seckillSkuRelation", seckillSkuRelation);
     }
@@ -54,7 +54,7 @@ public class SeckillSkuRelationController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody SeckillSkuRelationEntity seckillSkuRelation) {
-            seckillSkuRelationService.save(seckillSkuRelation);
+        seckillSkuRelationService.save(seckillSkuRelation);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class SeckillSkuRelationController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody SeckillSkuRelationEntity seckillSkuRelation) {
-            seckillSkuRelationService.updateById(seckillSkuRelation);
+        seckillSkuRelationService.updateById(seckillSkuRelation);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class SeckillSkuRelationController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            seckillSkuRelationService.removeByIds(Arrays.asList(ids));
+        seckillSkuRelationService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

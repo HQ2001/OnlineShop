@@ -44,7 +44,7 @@ public class UserCollectSubjectController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserCollectSubjectEntity userCollectSubject = userCollectSubjectService.getById(id);
+        UserCollectSubjectEntity userCollectSubject = userCollectSubjectService.getById(id);
 
         return R.ok().put("userCollectSubject", userCollectSubject);
     }
@@ -54,7 +54,7 @@ public class UserCollectSubjectController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody UserCollectSubjectEntity userCollectSubject) {
-            userCollectSubjectService.save(userCollectSubject);
+        userCollectSubjectService.save(userCollectSubject);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class UserCollectSubjectController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserCollectSubjectEntity userCollectSubject) {
-            userCollectSubjectService.updateById(userCollectSubject);
+        userCollectSubjectService.updateById(userCollectSubject);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class UserCollectSubjectController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userCollectSubjectService.removeByIds(Arrays.asList(ids));
+        userCollectSubjectService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

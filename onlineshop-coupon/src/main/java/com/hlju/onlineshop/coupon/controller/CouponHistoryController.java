@@ -44,7 +44,7 @@ public class CouponHistoryController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            CouponHistoryEntity couponHistory = couponHistoryService.getById(id);
+        CouponHistoryEntity couponHistory = couponHistoryService.getById(id);
 
         return R.ok().put("couponHistory", couponHistory);
     }
@@ -54,7 +54,7 @@ public class CouponHistoryController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody CouponHistoryEntity couponHistory) {
-            couponHistoryService.save(couponHistory);
+        couponHistoryService.save(couponHistory);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class CouponHistoryController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody CouponHistoryEntity couponHistory) {
-            couponHistoryService.updateById(couponHistory);
+        couponHistoryService.updateById(couponHistory);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class CouponHistoryController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            couponHistoryService.removeByIds(Arrays.asList(ids));
+        couponHistoryService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -44,7 +44,7 @@ public class SpuInfoController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            SpuInfoEntity spuInfo = spuInfoService.getById(id);
+        SpuInfoEntity spuInfo = spuInfoService.getById(id);
 
         return R.ok().put("spuInfo", spuInfo);
     }
@@ -54,7 +54,7 @@ public class SpuInfoController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody SpuInfoEntity spuInfo) {
-            spuInfoService.save(spuInfo);
+        spuInfoService.save(spuInfo);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class SpuInfoController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody SpuInfoEntity spuInfo) {
-            spuInfoService.updateById(spuInfo);
+        spuInfoService.updateById(spuInfo);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class SpuInfoController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            spuInfoService.removeByIds(Arrays.asList(ids));
+        spuInfoService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

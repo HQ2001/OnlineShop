@@ -44,7 +44,7 @@ public class SkuSaleAttrValueController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            SkuSaleAttrValueEntity skuSaleAttrValue = skuSaleAttrValueService.getById(id);
+        SkuSaleAttrValueEntity skuSaleAttrValue = skuSaleAttrValueService.getById(id);
 
         return R.ok().put("skuSaleAttrValue", skuSaleAttrValue);
     }
@@ -54,7 +54,7 @@ public class SkuSaleAttrValueController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody SkuSaleAttrValueEntity skuSaleAttrValue) {
-            skuSaleAttrValueService.save(skuSaleAttrValue);
+        skuSaleAttrValueService.save(skuSaleAttrValue);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class SkuSaleAttrValueController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody SkuSaleAttrValueEntity skuSaleAttrValue) {
-            skuSaleAttrValueService.updateById(skuSaleAttrValue);
+        skuSaleAttrValueService.updateById(skuSaleAttrValue);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class SkuSaleAttrValueController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            skuSaleAttrValueService.removeByIds(Arrays.asList(ids));
+        skuSaleAttrValueService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

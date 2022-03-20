@@ -44,7 +44,7 @@ public class OrderOperateHistoryController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            OrderOperateHistoryEntity orderOperateHistory = orderOperateHistoryService.getById(id);
+        OrderOperateHistoryEntity orderOperateHistory = orderOperateHistoryService.getById(id);
 
         return R.ok().put("orderOperateHistory", orderOperateHistory);
     }
@@ -54,7 +54,7 @@ public class OrderOperateHistoryController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody OrderOperateHistoryEntity orderOperateHistory) {
-            orderOperateHistoryService.save(orderOperateHistory);
+        orderOperateHistoryService.save(orderOperateHistory);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class OrderOperateHistoryController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody OrderOperateHistoryEntity orderOperateHistory) {
-            orderOperateHistoryService.updateById(orderOperateHistory);
+        orderOperateHistoryService.updateById(orderOperateHistory);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class OrderOperateHistoryController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            orderOperateHistoryService.removeByIds(Arrays.asList(ids));
+        orderOperateHistoryService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

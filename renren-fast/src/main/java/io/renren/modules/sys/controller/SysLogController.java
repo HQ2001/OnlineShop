@@ -20,19 +20,19 @@ import java.util.Map;
 @Controller
 @RequestMapping("/sys/log")
 public class SysLogController {
-	@Autowired
-	private SysLogService sysLogService;
-	
-	/**
-	 * 列表
-	 */
-	@ResponseBody
-	@GetMapping("/list")
-	@RequiresPermissions("sys:log:list")
-	public R list(@RequestParam Map<String, Object> params){
-		PageUtils page = sysLogService.queryPage(params);
+    @Autowired
+    private SysLogService sysLogService;
 
-		return R.ok().put("page", page);
-	}
-	
+    /**
+     * 列表
+     */
+    @ResponseBody
+    @GetMapping("/list")
+    @RequiresPermissions("sys:log:list")
+    public R list(@RequestParam Map<String, Object> params) {
+        PageUtils page = sysLogService.queryPage(params);
+
+        return R.ok().put("page", page);
+    }
+
 }

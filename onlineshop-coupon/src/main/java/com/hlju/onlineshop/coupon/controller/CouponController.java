@@ -60,7 +60,7 @@ public class CouponController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            CouponEntity coupon = couponService.getById(id);
+        CouponEntity coupon = couponService.getById(id);
 
         return R.ok().put("coupon", coupon);
     }
@@ -70,7 +70,7 @@ public class CouponController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody CouponEntity coupon) {
-            couponService.save(coupon);
+        couponService.save(coupon);
 
         return R.ok();
     }
@@ -80,7 +80,7 @@ public class CouponController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody CouponEntity coupon) {
-            couponService.updateById(coupon);
+        couponService.updateById(coupon);
 
         return R.ok();
     }
@@ -90,7 +90,7 @@ public class CouponController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            couponService.removeByIds(Arrays.asList(ids));
+        couponService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -44,7 +44,7 @@ public class AttrGroupController {
      */
     @RequestMapping("/info/{attrGroupId}")
     public R info(@PathVariable("attrGroupId") Long attrGroupId) {
-            AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
+        AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
 
         return R.ok().put("attrGroup", attrGroup);
     }
@@ -54,7 +54,7 @@ public class AttrGroupController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody AttrGroupEntity attrGroup) {
-            attrGroupService.save(attrGroup);
+        attrGroupService.save(attrGroup);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class AttrGroupController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody AttrGroupEntity attrGroup) {
-            attrGroupService.updateById(attrGroup);
+        attrGroupService.updateById(attrGroup);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class AttrGroupController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] attrGroupIds) {
-            attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+        attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
 
         return R.ok();
     }

@@ -44,7 +44,7 @@ public class HomeSubjectSpuController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            HomeSubjectSpuEntity homeSubjectSpu = homeSubjectSpuService.getById(id);
+        HomeSubjectSpuEntity homeSubjectSpu = homeSubjectSpuService.getById(id);
 
         return R.ok().put("homeSubjectSpu", homeSubjectSpu);
     }
@@ -54,7 +54,7 @@ public class HomeSubjectSpuController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody HomeSubjectSpuEntity homeSubjectSpu) {
-            homeSubjectSpuService.save(homeSubjectSpu);
+        homeSubjectSpuService.save(homeSubjectSpu);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class HomeSubjectSpuController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody HomeSubjectSpuEntity homeSubjectSpu) {
-            homeSubjectSpuService.updateById(homeSubjectSpu);
+        homeSubjectSpuService.updateById(homeSubjectSpu);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class HomeSubjectSpuController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            homeSubjectSpuService.removeByIds(Arrays.asList(ids));
+        homeSubjectSpuService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

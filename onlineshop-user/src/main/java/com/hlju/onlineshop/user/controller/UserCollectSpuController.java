@@ -44,7 +44,7 @@ public class UserCollectSpuController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserCollectSpuEntity userCollectSpu = userCollectSpuService.getById(id);
+        UserCollectSpuEntity userCollectSpu = userCollectSpuService.getById(id);
 
         return R.ok().put("userCollectSpu", userCollectSpu);
     }
@@ -54,7 +54,7 @@ public class UserCollectSpuController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody UserCollectSpuEntity userCollectSpu) {
-            userCollectSpuService.save(userCollectSpu);
+        userCollectSpuService.save(userCollectSpu);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class UserCollectSpuController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserCollectSpuEntity userCollectSpu) {
-            userCollectSpuService.updateById(userCollectSpu);
+        userCollectSpuService.updateById(userCollectSpu);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class UserCollectSpuController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userCollectSpuService.removeByIds(Arrays.asList(ids));
+        userCollectSpuService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

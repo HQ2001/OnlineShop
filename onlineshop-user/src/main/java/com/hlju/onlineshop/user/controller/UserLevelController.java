@@ -44,7 +44,7 @@ public class UserLevelController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserLevelEntity userLevel = userLevelService.getById(id);
+        UserLevelEntity userLevel = userLevelService.getById(id);
 
         return R.ok().put("userLevel", userLevel);
     }
@@ -54,7 +54,7 @@ public class UserLevelController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody UserLevelEntity userLevel) {
-            userLevelService.save(userLevel);
+        userLevelService.save(userLevel);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class UserLevelController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserLevelEntity userLevel) {
-            userLevelService.updateById(userLevel);
+        userLevelService.updateById(userLevel);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class UserLevelController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userLevelService.removeByIds(Arrays.asList(ids));
+        userLevelService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -44,7 +44,7 @@ public class AttrController {
      */
     @RequestMapping("/info/{attrId}")
     public R info(@PathVariable("attrId") Long attrId) {
-            AttrEntity attr = attrService.getById(attrId);
+        AttrEntity attr = attrService.getById(attrId);
 
         return R.ok().put("attr", attr);
     }
@@ -54,7 +54,7 @@ public class AttrController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody AttrEntity attr) {
-            attrService.save(attr);
+        attrService.save(attr);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class AttrController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody AttrEntity attr) {
-            attrService.updateById(attr);
+        attrService.updateById(attr);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class AttrController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] attrIds) {
-            attrService.removeByIds(Arrays.asList(attrIds));
+        attrService.removeByIds(Arrays.asList(attrIds));
 
         return R.ok();
     }

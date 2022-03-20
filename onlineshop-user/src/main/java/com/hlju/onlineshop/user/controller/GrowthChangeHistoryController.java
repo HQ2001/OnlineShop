@@ -44,7 +44,7 @@ public class GrowthChangeHistoryController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            GrowthChangeHistoryEntity growthChangeHistory = growthChangeHistoryService.getById(id);
+        GrowthChangeHistoryEntity growthChangeHistory = growthChangeHistoryService.getById(id);
 
         return R.ok().put("growthChangeHistory", growthChangeHistory);
     }
@@ -54,7 +54,7 @@ public class GrowthChangeHistoryController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody GrowthChangeHistoryEntity growthChangeHistory) {
-            growthChangeHistoryService.save(growthChangeHistory);
+        growthChangeHistoryService.save(growthChangeHistory);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class GrowthChangeHistoryController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody GrowthChangeHistoryEntity growthChangeHistory) {
-            growthChangeHistoryService.updateById(growthChangeHistory);
+        growthChangeHistoryService.updateById(growthChangeHistory);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class GrowthChangeHistoryController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            growthChangeHistoryService.removeByIds(Arrays.asList(ids));
+        growthChangeHistoryService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

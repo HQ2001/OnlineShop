@@ -44,7 +44,7 @@ public class AttrAttrGroupRelationController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            AttrAttrGroupRelationEntity attrAttrGroupRelation = attrAttrGroupRelationService.getById(id);
+        AttrAttrGroupRelationEntity attrAttrGroupRelation = attrAttrGroupRelationService.getById(id);
 
         return R.ok().put("attrAttrGroupRelation", attrAttrGroupRelation);
     }
@@ -54,7 +54,7 @@ public class AttrAttrGroupRelationController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody AttrAttrGroupRelationEntity attrAttrGroupRelation) {
-            attrAttrGroupRelationService.save(attrAttrGroupRelation);
+        attrAttrGroupRelationService.save(attrAttrGroupRelation);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class AttrAttrGroupRelationController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody AttrAttrGroupRelationEntity attrAttrGroupRelation) {
-            attrAttrGroupRelationService.updateById(attrAttrGroupRelation);
+        attrAttrGroupRelationService.updateById(attrAttrGroupRelation);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class AttrAttrGroupRelationController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            attrAttrGroupRelationService.removeByIds(Arrays.asList(ids));
+        attrAttrGroupRelationService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -2,6 +2,7 @@ package io.renren.datasource.properties;
 
 /**
  * 多数据源属性
+ *
  * @since 1.0.0
  */
 public class DataSourceProperties {

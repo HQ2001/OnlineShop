@@ -44,7 +44,7 @@ public class UserReceiveAddressController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserReceiveAddressEntity userReceiveAddress = userReceiveAddressService.getById(id);
+        UserReceiveAddressEntity userReceiveAddress = userReceiveAddressService.getById(id);
 
         return R.ok().put("userReceiveAddress", userReceiveAddress);
     }
@@ -54,7 +54,7 @@ public class UserReceiveAddressController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody UserReceiveAddressEntity userReceiveAddress) {
-            userReceiveAddressService.save(userReceiveAddress);
+        userReceiveAddressService.save(userReceiveAddress);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class UserReceiveAddressController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserReceiveAddressEntity userReceiveAddress) {
-            userReceiveAddressService.updateById(userReceiveAddress);
+        userReceiveAddressService.updateById(userReceiveAddress);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class UserReceiveAddressController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userReceiveAddressService.removeByIds(Arrays.asList(ids));
+        userReceiveAddressService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

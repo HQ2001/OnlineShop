@@ -44,7 +44,7 @@ public class UserPriceController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserPriceEntity userPrice = userPriceService.getById(id);
+        UserPriceEntity userPrice = userPriceService.getById(id);
 
         return R.ok().put("userPrice", userPrice);
     }
@@ -54,7 +54,7 @@ public class UserPriceController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody UserPriceEntity userPrice) {
-            userPriceService.save(userPrice);
+        userPriceService.save(userPrice);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class UserPriceController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserPriceEntity userPrice) {
-            userPriceService.updateById(userPrice);
+        userPriceService.updateById(userPrice);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class UserPriceController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userPriceService.removeByIds(Arrays.asList(ids));
+        userPriceService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

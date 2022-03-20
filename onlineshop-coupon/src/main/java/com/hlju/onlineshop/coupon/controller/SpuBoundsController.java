@@ -44,7 +44,7 @@ public class SpuBoundsController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            SpuBoundsEntity spuBounds = spuBoundsService.getById(id);
+        SpuBoundsEntity spuBounds = spuBoundsService.getById(id);
 
         return R.ok().put("spuBounds", spuBounds);
     }
@@ -54,7 +54,7 @@ public class SpuBoundsController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody SpuBoundsEntity spuBounds) {
-            spuBoundsService.save(spuBounds);
+        spuBoundsService.save(spuBounds);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class SpuBoundsController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody SpuBoundsEntity spuBounds) {
-            spuBoundsService.updateById(spuBounds);
+        spuBoundsService.updateById(spuBounds);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class SpuBoundsController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            spuBoundsService.removeByIds(Arrays.asList(ids));
+        spuBoundsService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

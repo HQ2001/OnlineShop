@@ -44,7 +44,7 @@ public class UserStatisticsInfoController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserStatisticsInfoEntity userStatisticsInfo = userStatisticsInfoService.getById(id);
+        UserStatisticsInfoEntity userStatisticsInfo = userStatisticsInfoService.getById(id);
 
         return R.ok().put("userStatisticsInfo", userStatisticsInfo);
     }
@@ -54,7 +54,7 @@ public class UserStatisticsInfoController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody UserStatisticsInfoEntity userStatisticsInfo) {
-            userStatisticsInfoService.save(userStatisticsInfo);
+        userStatisticsInfoService.save(userStatisticsInfo);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class UserStatisticsInfoController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserStatisticsInfoEntity userStatisticsInfo) {
-            userStatisticsInfoService.updateById(userStatisticsInfo);
+        userStatisticsInfoService.updateById(userStatisticsInfo);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class UserStatisticsInfoController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userStatisticsInfoService.removeByIds(Arrays.asList(ids));
+        userStatisticsInfoService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

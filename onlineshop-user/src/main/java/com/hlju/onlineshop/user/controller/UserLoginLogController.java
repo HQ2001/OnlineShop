@@ -44,7 +44,7 @@ public class UserLoginLogController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserLoginLogEntity userLoginLog = userLoginLogService.getById(id);
+        UserLoginLogEntity userLoginLog = userLoginLogService.getById(id);
 
         return R.ok().put("userLoginLog", userLoginLog);
     }
@@ -54,7 +54,7 @@ public class UserLoginLogController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody UserLoginLogEntity userLoginLog) {
-            userLoginLogService.save(userLoginLog);
+        userLoginLogService.save(userLoginLog);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class UserLoginLogController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody UserLoginLogEntity userLoginLog) {
-            userLoginLogService.updateById(userLoginLog);
+        userLoginLogService.updateById(userLoginLog);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class UserLoginLogController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userLoginLogService.removeByIds(Arrays.asList(ids));
+        userLoginLogService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

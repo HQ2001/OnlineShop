@@ -44,7 +44,7 @@ public class WarehouseInfoController {
      */
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            WarehouseInfoEntity warehouseInfo = warehouseInfoService.getById(id);
+        WarehouseInfoEntity warehouseInfo = warehouseInfoService.getById(id);
 
         return R.ok().put("warehouseInfo", warehouseInfo);
     }
@@ -54,7 +54,7 @@ public class WarehouseInfoController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody WarehouseInfoEntity warehouseInfo) {
-            warehouseInfoService.save(warehouseInfo);
+        warehouseInfoService.save(warehouseInfo);
 
         return R.ok();
     }
@@ -64,7 +64,7 @@ public class WarehouseInfoController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody WarehouseInfoEntity warehouseInfo) {
-            warehouseInfoService.updateById(warehouseInfo);
+        warehouseInfoService.updateById(warehouseInfo);
 
         return R.ok();
     }
@@ -74,7 +74,7 @@ public class WarehouseInfoController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            warehouseInfoService.removeByIds(Arrays.asList(ids));
+        warehouseInfoService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }
