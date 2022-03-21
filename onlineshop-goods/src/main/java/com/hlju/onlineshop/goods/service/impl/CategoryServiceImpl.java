@@ -82,4 +82,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 通过id删除相应菜单
+     * @param catIds 分类id数组
+     */
+    @Override
+    public void removeMenuByIds(List<Long> catIds) {
+        // TODO 检查删除的菜单是否被别的地方引用
+        baseMapper.deleteBatchIds(catIds);
+    }
+
 }
