@@ -1,7 +1,6 @@
 package io.renren.config;
 
-import static com.alibaba.nacos.shaded.com.google.common.collect.Lists.newArrayList;
-
+import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +44,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     }
 
     private List<ApiKey> security() {
-        return newArrayList(
+        return Lists.newArrayList(
                 new ApiKey("token", "token", "header")
         );
     }

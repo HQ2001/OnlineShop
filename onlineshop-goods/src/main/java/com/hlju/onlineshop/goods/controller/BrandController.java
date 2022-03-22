@@ -3,7 +3,11 @@ package com.hlju.onlineshop.goods.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.hlju.common.valid.AddGroup;
+import com.hlju.common.valid.UpdateGroup;
+import com.hlju.common.valid.UpdateStatusGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +57,7 @@ public class BrandController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody BrandEntity brand) {
+    public R save(@RequestBody @Validated({AddGroup.class}) BrandEntity brand) {
         brandService.save(brand);
 
         return R.ok();
@@ -63,8 +67,21 @@ public class BrandController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody BrandEntity brand) {
+    public R update(@RequestBody @Validated({UpdateGroup.class}) BrandEntity brand) {
         brandService.updateById(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改品牌状态
+     */
+    @RequestMapping("/update-status")
+    public R updateStatus(@RequestBody @Validated({UpdateStatusGroup.class}) BrandEntity brand) {
+        BrandEntity newBrand = new BrandEntity();
+        newBrand.setBrandId(brand.getBrandId());
+        newBrand.setShowStatus(brand.getShowStatus());
+        brandService.updateById(newBrand);
 
         return R.ok();
     }
