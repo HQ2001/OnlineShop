@@ -3,6 +3,7 @@ package com.hlju.onlineshop.goods.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.hlju.onlineshop.goods.dto.SpuSaveDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-14 11:13:55
  */
 @RestController
-@RequestMapping("/goods/spuinfo")
+@RequestMapping("/goods/spu-info")
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
@@ -53,8 +54,9 @@ public class SpuInfoController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody SpuInfoEntity spuInfo) {
-        spuInfoService.save(spuInfo);
+    public R save(@RequestBody SpuSaveDTO spuSaveDto) {
+        // spuInfoService.save(spuInfo);
+        spuInfoService.saveSpuDetail(spuSaveDto);
 
         return R.ok();
     }

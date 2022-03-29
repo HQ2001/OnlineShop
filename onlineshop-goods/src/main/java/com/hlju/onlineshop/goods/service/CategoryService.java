@@ -30,5 +30,18 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @param catIds 分类id数组
      */
     void removeMenuByIds(List<Long> catIds);
+
+    /**
+     * 根据分类id查询出该分类的完整路径
+     * @param catId 分类id
+     * @return 分类的路径
+     */
+    List<Long> getCategoryPathById(Long catId);
+
+    /**
+     * 更新分类表以及其他包含分类信息的表
+     * @param category 分类实体
+     */
+    void updateDetail(CategoryEntity category);
 }
 

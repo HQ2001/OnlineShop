@@ -32,7 +32,7 @@ public class CategoryController {
     /**
      * 以树形结构查询出所有分类
      */
-    @RequestMapping("/list/tree")
+    @RequestMapping("/list-tree")
     public R list() {
         List<CategoryEntity> entities = categoryService.listByTree();
 
@@ -65,7 +65,7 @@ public class CategoryController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody CategoryEntity category) {
-        categoryService.updateById(category);
+        categoryService.updateDetail(category);
 
         return R.ok();
     }

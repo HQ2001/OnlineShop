@@ -2,8 +2,11 @@ package com.hlju.onlineshop.goods.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
+import com.hlju.onlineshop.goods.dto.AttrAttrGroupRelationDTO;
 import com.hlju.onlineshop.goods.entity.AttrAttrGroupRelationEntity;
+import com.hlju.onlineshop.goods.entity.AttrEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +19,11 @@ import java.util.Map;
 public interface AttrAttrGroupRelationService extends IService<AttrAttrGroupRelationEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 批量保存关联关系
+     * @param relations dto
+     */
+    void saveBatch(List<AttrAttrGroupRelationDTO> relations);
 }
 

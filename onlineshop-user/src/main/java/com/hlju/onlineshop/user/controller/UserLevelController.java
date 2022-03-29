@@ -23,7 +23,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-14 09:58:06
  */
 @RestController
-@RequestMapping("/user/userlevel")
+@RequestMapping("/user/user-level")
 public class UserLevelController {
     @Autowired
     private UserLevelService userLevelService;

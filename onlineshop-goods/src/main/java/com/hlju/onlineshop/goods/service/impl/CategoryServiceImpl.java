@@ -1,8 +1,11 @@
 package com.hlju.onlineshop.goods.service.impl;
 
+import com.google.common.collect.Lists;
+import com.hlju.onlineshop.goods.dao.CategoryBrandRelationDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -17,14 +20,17 @@ import com.hlju.common.utils.Query;
 import com.hlju.onlineshop.goods.dao.CategoryDao;
 import com.hlju.onlineshop.goods.entity.CategoryEntity;
 import com.hlju.onlineshop.goods.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
 
-    @Autowired
-    public CategoryServiceImpl() {
+    private final CategoryBrandRelationDao categoryBrandRelationDao;
 
+    @Autowired
+    public CategoryServiceImpl(CategoryBrandRelationDao categoryBrandRelationDao) {
+        this.categoryBrandRelationDao = categoryBrandRelationDao;
     }
 
     @Override
@@ -82,14 +88,36 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 .collect(Collectors.toList());
     }
 
-    /**
-     * 通过id删除相应菜单
-     * @param catIds 分类id数组
-     */
     @Override
     public void removeMenuByIds(List<Long> catIds) {
         // TODO 检查删除的菜单是否被别的地方引用
         baseMapper.deleteBatchIds(catIds);
+    }
+
+    @Override
+    public List<Long> getCategoryPathById(Long catId) {
+        List<Long> path = Lists.newArrayList();
+
+        findParentPath(catId, path);
+
+        Collections.reverse(path);
+        return path;
+    }
+
+    private void findParentPath(Long catId, List<Long> path) {
+        CategoryEntity category = baseMapper.selectById(catId);
+        path.add(catId);
+        Long parentCid = category.getParentCid();
+        if (parentCid != 0) {
+            findParentPath(category.getParentCid(), path);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void updateDetail(CategoryEntity category) {
+        baseMapper.updateById(category);
+        categoryBrandRelationDao.updateCategory(category);
     }
 
 }

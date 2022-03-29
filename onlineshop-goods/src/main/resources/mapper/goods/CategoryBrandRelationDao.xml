@@ -3,12 +3,27 @@
 
 <mapper namespace="com.hlju.onlineshop.goods.dao.CategoryBrandRelationDao">
 
-    <resultMap type="com.hlju.onlineshop.goods.entity.CategoryBrandRelationEntity" id="categoryBrandRelationMap">
+    <resultMap type="com.hlju.onlineshop.goods.entity.CategoryBrandRelationEntity" id="baseResultMap">
         <result property="id" column="id"/>
         <result property="brandId" column="brand_id"/>
         <result property="categoryId" column="category_id"/>
         <result property="brandName" column="brand_name"/>
         <result property="categoryName" column="category_name"/>
     </resultMap>
+    <update id="updateCategory">
+        update gms_category_brand_relation
+        set category_name = #{category.name}
+        where category_id = #{category.catId}
+    </update>
+    <select id="listByBrandId" resultMap="baseResultMap">
+        select id, brand_id, category_id, brand_name, category_name
+        from gms_category_brand_relation
+        where brand_id = #{brandId}
+    </select>
+    <select id="listByCategoryId" resultMap="baseResultMap">
+        select id, brand_id, category_id, brand_name, category_name
+        from gms_category_brand_relation
+        where category_id = #{categoryId}
+    </select>
 
 </mapper>

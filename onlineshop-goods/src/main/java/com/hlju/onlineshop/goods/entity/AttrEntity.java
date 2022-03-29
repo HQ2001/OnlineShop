@@ -38,11 +38,15 @@ public class AttrEntity implements Serializable {
      */
     private String icon;
     /**
+     * 值类型[0-只能单个值，1-允许多个值]
+     */
+    private String valueType;
+    /**
      * 可选值列表[用逗号分隔]
      */
     private String valueSelect;
     /**
-     * 属性类型[0-销售属性，1-基本属性，2-既是销售属性又是基本属性]
+     * 属性类型[0-销售属性，1-基本属性]
      */
     private Integer attrType;
     /**

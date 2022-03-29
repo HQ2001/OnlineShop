@@ -3,11 +3,43 @@
 
 <mapper namespace="com.hlju.onlineshop.goods.dao.AttrAttrGroupRelationDao">
 
-    <resultMap type="com.hlju.onlineshop.goods.entity.AttrAttrGroupRelationEntity" id="attrAttrGroupRelationMap">
+    <resultMap type="com.hlju.onlineshop.goods.entity.AttrAttrGroupRelationEntity" id="baseResultMap">
         <result property="id" column="id"/>
         <result property="attrId" column="attr_id"/>
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrSort" column="attr_sort"/>
     </resultMap>
+    <delete id="deleteByRelationList" parameterType="java.util.List">
+        delete
+        from gms_attr_attr_group_relation
+        where (attr_id, attr_group_id) in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            (#{item.attrId}, #{item.attrGroupId})
+        </foreach>
+    </delete>
+    <select id="selectByAttrIdAndAttrGroupId" resultMap="baseResultMap">
+        select id, attr_id, attr_group_id, attr_sort
+        from gms_attr_attr_group_relation
+        where attr_id = #{attrId}
+          and attr_group_id = #{attrGroupId}
+    </select>
+    <select id="selectOneByAttrId" parameterType="Long" resultMap="baseResultMap">
+        select id, attr_id, attr_group_id, attr_sort
+        from gms_attr_attr_group_relation
+        where attr_id = #{attrId} limit 1
+    </select>
+    <select id="listByAttrGroupId" resultMap="baseResultMap">
+        select id, attr_id, attr_group_id, attr_sort
+        from gms_attr_attr_group_relation
+        where attr_group_id = #{attrGroupId}
+    </select>
+    <select id="listByAttrGroupIds" parameterType="java.util.List" resultMap="baseResultMap">
+        select id, attr_id, attr_group_id, attr_sort
+        from gms_attr_attr_group_relation
+        where attr_group_id in
+        <foreach collection="list" item="groupId" separator="," open="(" close=")">
+            #{groupId}
+        </foreach>
+    </select>
 
 </mapper>

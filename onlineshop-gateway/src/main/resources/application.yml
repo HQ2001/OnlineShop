@@ -8,12 +8,21 @@ spring:
             - Path=/api/goods/**
           filters:
             - RewritePath=/api/(?<segment>.*), /$\{segment}
+
         - id: three_party_route
           uri: lb://onlineshop-third-party
           predicates:
             - Path=/api/thirdparty/**
           filters:
             - RewritePath=/api/thirdparty/(?<segment>.*), /$\{segment}
+
+        - id: userRoute
+          uri: lb://onlineshop-user
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+
         - id: admin_route
           uri: lb://renren-fast
           predicates:

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hlju.onlineshop.goods.dao.AttrGroupDao">
 
-    <resultMap type="com.hlju.onlineshop.goods.entity.AttrGroupEntity" id="attrGroupMap">
+    <resultMap type="com.hlju.onlineshop.goods.entity.AttrGroupEntity" id="baseResultMap">
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
         <result property="sort" column="sort"/>
@@ -11,5 +11,10 @@
         <result property="icon" column="icon"/>
         <result property="categoryId" column="category_id"/>
     </resultMap>
+    <select id="listByCategoryId" parameterType="java.lang.Long" resultMap="baseResultMap">
+        select attr_group_id, attr_group_name, sort, description, icon, category_id
+        from gms_attr_group
+        where category_id = #{categoryId}
+    </select>
 
 </mapper>
