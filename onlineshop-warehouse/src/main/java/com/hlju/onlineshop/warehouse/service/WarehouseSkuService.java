@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.warehouse.entity.WarehouseSkuEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,11 @@ import java.util.Map;
 public interface WarehouseSkuService extends IService<WarehouseSkuEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 增加库存
+     * @param warehouseSkuEntities 实体list
+     */
+    void addStocks(List<WarehouseSkuEntity> warehouseSkuEntities);
 }
 

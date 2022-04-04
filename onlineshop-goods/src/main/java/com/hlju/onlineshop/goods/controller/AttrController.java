@@ -1,9 +1,12 @@
 package com.hlju.onlineshop.goods.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import com.hlju.onlineshop.goods.dto.AttrDTO;
+import com.hlju.onlineshop.goods.entity.GoodAttrValueEntity;
+import com.hlju.onlineshop.goods.service.GoodAttrValueService;
 import com.hlju.onlineshop.goods.vo.AttrVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +28,13 @@ import com.hlju.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+    @Autowired
+    private GoodAttrValueService goodAttrValueService;
 
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = attrService.queryPage(params);
 
@@ -62,7 +67,7 @@ public class AttrController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody AttrDTO attrDto) {
         attrService.saveAttr(attrDto);
 
@@ -72,7 +77,7 @@ public class AttrController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody AttrDTO attrDto) {
         attrService.updateAttrById(attrDto);
 
@@ -80,13 +85,34 @@ public class AttrController {
     }
 
     /**
+     * 通过spuId更新基础属性（spu属性）
+     * 全量更新
+     */
+    @PostMapping("/update/{spuId}")
+    public R updateBaseAttrBySpuId(@PathVariable("spuId") Long spuId,
+                                   @RequestBody List<GoodAttrValueEntity> entities) {
+        goodAttrValueService.updateBaseAttrBySpuId(spuId, entities);
+
+        return R.ok();
+    }
+
+    /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] attrIds) {
         attrService.removeByIds(Arrays.asList(attrIds));
 
         return R.ok();
+    }
+
+    /**
+     * 列表
+     */
+    @GetMapping("/base/list-for-spu/{spuId}")
+    public R baseListForSpu(@PathVariable("spuId") Long spuId) {
+        List<GoodAttrValueEntity> data = goodAttrValueService.baseAttrListForSpu(spuId);
+        return R.ok().put("data", data);
     }
 
 }

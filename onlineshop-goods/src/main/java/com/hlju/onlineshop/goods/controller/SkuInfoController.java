@@ -1,14 +1,11 @@
 package com.hlju.onlineshop.goods.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.goods.entity.SkuInfoEntity;
 import com.hlju.onlineshop.goods.service.SkuInfoService;
@@ -23,7 +20,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-14 11:13:55
  */
 @RestController
-@RequestMapping("/goods/skuinfo")
+@RequestMapping("/goods/sku-info")
 public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
@@ -31,13 +28,22 @@ public class SkuInfoController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
-        PageUtils page = skuInfoService.queryPage(params);
+        PageUtils page = skuInfoService.queryPageByCondition(params);
 
         return R.ok().put("page", page);
     }
 
+    /**
+     * 列表
+     */
+    @GetMapping("/list-by-sku-ids")
+    public R listBySkuIds(@RequestParam("skuIds") List<Long> skuIds) {
+        List<SkuInfoEntity> skus = skuInfoService.listByIds(skuIds);
+
+        return R.ok().put("skus", skus);
+    }
 
     /**
      * 信息
@@ -52,7 +58,7 @@ public class SkuInfoController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody SkuInfoEntity skuInfo) {
         skuInfoService.save(skuInfo);
 
@@ -62,7 +68,7 @@ public class SkuInfoController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody SkuInfoEntity skuInfo) {
         skuInfoService.updateById(skuInfo);
 
@@ -72,7 +78,7 @@ public class SkuInfoController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] skuIds) {
         skuInfoService.removeByIds(Arrays.asList(skuIds));
 

@@ -1,5 +1,6 @@
 package com.hlju.onlineshop.warehouse.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -20,9 +21,17 @@ public class WarehouseInfoServiceImpl extends ServiceImpl<WarehouseInfoDao, Ware
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        QueryWrapper<WarehouseInfoEntity> queryWrapper = new QueryWrapper<>();
+        String key = (String) params.get("key");
+        if (StringUtils.isNotEmpty(key)) {
+            queryWrapper.eq("id", key)
+                    .or().like("name", key)
+                    .or().like("address", key)
+                    .or().like("area_code", key);
+        }
         IPage<WarehouseInfoEntity> page = this.page(
                 new Query<WarehouseInfoEntity>().getPage(params),
-                new QueryWrapper<WarehouseInfoEntity>()
+                queryWrapper
         );
 
         return new PageUtils(page);

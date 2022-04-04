@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.user.entity.UserLevelEntity;
 import com.hlju.onlineshop.user.service.UserLevelService;
@@ -31,7 +27,7 @@ public class UserLevelController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = userLevelService.queryPage(params);
 
@@ -42,7 +38,7 @@ public class UserLevelController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
         UserLevelEntity userLevel = userLevelService.getById(id);
 
@@ -52,7 +48,7 @@ public class UserLevelController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody UserLevelEntity userLevel) {
         userLevelService.save(userLevel);
 
@@ -62,7 +58,7 @@ public class UserLevelController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody UserLevelEntity userLevel) {
         userLevelService.updateById(userLevel);
 
@@ -72,7 +68,7 @@ public class UserLevelController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
         userLevelService.removeByIds(Arrays.asList(ids));
 

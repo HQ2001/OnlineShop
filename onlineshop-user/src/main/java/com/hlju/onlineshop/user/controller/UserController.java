@@ -38,7 +38,7 @@ public class UserController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = userService.queryPage(params);
 
@@ -49,7 +49,7 @@ public class UserController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
         UserEntity user = userService.getById(id);
 
@@ -59,7 +59,7 @@ public class UserController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody UserEntity user) {
         userService.save(user);
 
@@ -69,7 +69,7 @@ public class UserController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody UserEntity user) {
         userService.updateById(user);
 
@@ -79,7 +79,7 @@ public class UserController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
         userService.removeByIds(Arrays.asList(ids));
 

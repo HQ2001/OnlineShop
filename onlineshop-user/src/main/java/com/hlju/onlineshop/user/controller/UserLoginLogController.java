@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.user.entity.UserLoginLogEntity;
 import com.hlju.onlineshop.user.service.UserLoginLogService;
@@ -31,7 +27,7 @@ public class UserLoginLogController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = userLoginLogService.queryPage(params);
 
@@ -42,7 +38,7 @@ public class UserLoginLogController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
         UserLoginLogEntity userLoginLog = userLoginLogService.getById(id);
 
@@ -52,7 +48,7 @@ public class UserLoginLogController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody UserLoginLogEntity userLoginLog) {
         userLoginLogService.save(userLoginLog);
 
@@ -62,7 +58,7 @@ public class UserLoginLogController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody UserLoginLogEntity userLoginLog) {
         userLoginLogService.updateById(userLoginLog);
 
@@ -72,7 +68,7 @@ public class UserLoginLogController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
         userLoginLogService.removeByIds(Arrays.asList(ids));
 

@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.warehouse.entity.WarehouseOrderTaskDetailEntity;
 import com.hlju.onlineshop.warehouse.service.WarehouseOrderTaskDetailService;
@@ -23,7 +19,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-13 22:50:18
  */
 @RestController
-@RequestMapping("/warehouse/warehouseordertaskdetail")
+@RequestMapping("/warehouse/warehouse-order-task-detail")
 public class WarehouseOrderTaskDetailController {
     @Autowired
     private WarehouseOrderTaskDetailService warehouseOrderTaskDetailService;
@@ -31,7 +27,7 @@ public class WarehouseOrderTaskDetailController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = warehouseOrderTaskDetailService.queryPage(params);
 
@@ -42,7 +38,7 @@ public class WarehouseOrderTaskDetailController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
         WarehouseOrderTaskDetailEntity warehouseOrderTaskDetail = warehouseOrderTaskDetailService.getById(id);
 
@@ -52,7 +48,7 @@ public class WarehouseOrderTaskDetailController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody WarehouseOrderTaskDetailEntity warehouseOrderTaskDetail) {
         warehouseOrderTaskDetailService.save(warehouseOrderTaskDetail);
 
@@ -62,7 +58,7 @@ public class WarehouseOrderTaskDetailController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody WarehouseOrderTaskDetailEntity warehouseOrderTaskDetail) {
         warehouseOrderTaskDetailService.updateById(warehouseOrderTaskDetail);
 
@@ -72,7 +68,7 @@ public class WarehouseOrderTaskDetailController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
         warehouseOrderTaskDetailService.removeByIds(Arrays.asList(ids));
 

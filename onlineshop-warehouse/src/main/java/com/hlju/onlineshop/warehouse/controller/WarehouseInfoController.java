@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.warehouse.entity.WarehouseInfoEntity;
 import com.hlju.onlineshop.warehouse.service.WarehouseInfoService;
@@ -23,7 +19,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-13 22:50:18
  */
 @RestController
-@RequestMapping("/warehouse/warehouseinfo")
+@RequestMapping("/warehouse/warehouse-info")
 public class WarehouseInfoController {
     @Autowired
     private WarehouseInfoService warehouseInfoService;
@@ -31,7 +27,7 @@ public class WarehouseInfoController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = warehouseInfoService.queryPage(params);
 
@@ -42,7 +38,7 @@ public class WarehouseInfoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
         WarehouseInfoEntity warehouseInfo = warehouseInfoService.getById(id);
 
@@ -52,7 +48,7 @@ public class WarehouseInfoController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody WarehouseInfoEntity warehouseInfo) {
         warehouseInfoService.save(warehouseInfo);
 
@@ -62,7 +58,7 @@ public class WarehouseInfoController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody WarehouseInfoEntity warehouseInfo) {
         warehouseInfoService.updateById(warehouseInfo);
 
@@ -72,7 +68,7 @@ public class WarehouseInfoController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
         warehouseInfoService.removeByIds(Arrays.asList(ids));
 
