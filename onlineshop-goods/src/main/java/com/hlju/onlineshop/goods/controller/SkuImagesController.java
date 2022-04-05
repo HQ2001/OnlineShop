@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.goods.entity.SkuImagesEntity;
 import com.hlju.onlineshop.goods.service.SkuImagesService;
@@ -31,7 +27,7 @@ public class SkuImagesController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = skuImagesService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class SkuImagesController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            SkuImagesEntity skuImages = skuImagesService.getById(id);
+        SkuImagesEntity skuImages = skuImagesService.getById(id);
 
         return R.ok().put("skuImages", skuImages);
     }
@@ -52,9 +48,9 @@ public class SkuImagesController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody SkuImagesEntity skuImages) {
-            skuImagesService.save(skuImages);
+        skuImagesService.save(skuImages);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class SkuImagesController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody SkuImagesEntity skuImages) {
-            skuImagesService.updateById(skuImages);
+        skuImagesService.updateById(skuImages);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class SkuImagesController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            skuImagesService.removeByIds(Arrays.asList(ids));
+        skuImagesService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

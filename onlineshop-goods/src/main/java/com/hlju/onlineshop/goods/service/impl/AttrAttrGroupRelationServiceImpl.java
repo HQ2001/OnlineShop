@@ -1,7 +1,12 @@
 package com.hlju.onlineshop.goods.service.impl;
 
+import com.hlju.onlineshop.goods.dto.AttrAttrGroupRelationDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,6 +29,18 @@ public class AttrAttrGroupRelationServiceImpl extends ServiceImpl<AttrAttrGroupR
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public void saveBatch(List<AttrAttrGroupRelationDTO> relations) {
+        List<AttrAttrGroupRelationEntity> relationEntities = relations.stream().map(item -> {
+            AttrAttrGroupRelationEntity relationEntity = new AttrAttrGroupRelationEntity();
+            relationEntity.setAttrId(item.getAttrId());
+            relationEntity.setAttrGroupId(item.getAttrGroupId());
+            return relationEntity;
+        }).collect(Collectors.toList());
+        baseMapper.deleteByRelationList(relations);
+        this.saveBatch(relationEntities);
     }
 
 }

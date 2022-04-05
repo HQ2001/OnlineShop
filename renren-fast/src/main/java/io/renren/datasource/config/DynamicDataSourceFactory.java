@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * DruidDataSource
+ *
  * @since 1.0.0
  */
 public class DynamicDataSourceFactory {

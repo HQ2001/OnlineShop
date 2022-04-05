@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.user.entity.UserCollectSpuEntity;
 import com.hlju.onlineshop.user.service.UserCollectSpuService;
@@ -31,7 +27,7 @@ public class UserCollectSpuController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = userCollectSpuService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class UserCollectSpuController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserCollectSpuEntity userCollectSpu = userCollectSpuService.getById(id);
+        UserCollectSpuEntity userCollectSpu = userCollectSpuService.getById(id);
 
         return R.ok().put("userCollectSpu", userCollectSpu);
     }
@@ -52,9 +48,9 @@ public class UserCollectSpuController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody UserCollectSpuEntity userCollectSpu) {
-            userCollectSpuService.save(userCollectSpu);
+        userCollectSpuService.save(userCollectSpu);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class UserCollectSpuController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody UserCollectSpuEntity userCollectSpu) {
-            userCollectSpuService.updateById(userCollectSpu);
+        userCollectSpuService.updateById(userCollectSpu);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class UserCollectSpuController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userCollectSpuService.removeByIds(Arrays.asList(ids));
+        userCollectSpuService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

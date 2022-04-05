@@ -3,7 +3,9 @@ package com.hlju.onlineshop.goods.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.goods.entity.AttrGroupEntity;
+import com.hlju.onlineshop.goods.vo.AttrGroupWithAttrsVO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,20 @@ import java.util.Map;
 public interface AttrGroupService extends IService<AttrGroupEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 根据categoryId分页查询数据
+     * @param params 包括分页信息
+     * @param categoryId 分类id，为0的话表示查询所有
+     * @return 查询结果
+     */
+    PageUtils queryPageByCategoryId(Map<String, Object> params, Long categoryId);
+
+    /**
+     * 根据分类id查询出属性分组以及属性分组下的属性
+     * @param categoryId 分类id
+     * @return vo的list
+     */
+    List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCategoryId(Long categoryId);
 }
 

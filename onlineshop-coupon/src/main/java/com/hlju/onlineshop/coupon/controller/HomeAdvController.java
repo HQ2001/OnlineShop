@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.coupon.entity.HomeAdvEntity;
 import com.hlju.onlineshop.coupon.service.HomeAdvService;
@@ -31,7 +27,7 @@ public class HomeAdvController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = homeAdvService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class HomeAdvController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            HomeAdvEntity homeAdv = homeAdvService.getById(id);
+        HomeAdvEntity homeAdv = homeAdvService.getById(id);
 
         return R.ok().put("homeAdv", homeAdv);
     }
@@ -52,9 +48,9 @@ public class HomeAdvController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody HomeAdvEntity homeAdv) {
-            homeAdvService.save(homeAdv);
+        homeAdvService.save(homeAdv);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class HomeAdvController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody HomeAdvEntity homeAdv) {
-            homeAdvService.updateById(homeAdv);
+        homeAdvService.updateById(homeAdv);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class HomeAdvController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            homeAdvService.removeByIds(Arrays.asList(ids));
+        homeAdvService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

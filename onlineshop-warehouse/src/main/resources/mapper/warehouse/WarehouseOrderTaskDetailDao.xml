@@ -3,7 +3,8 @@
 
 <mapper namespace="com.hlju.onlineshop.warehouse.dao.WarehouseOrderTaskDetailDao">
 
-    <resultMap type="com.hlju.onlineshop.warehouse.entity.WarehouseOrderTaskDetailEntity" id="warehouseOrderTaskDetailMap">
+    <resultMap type="com.hlju.onlineshop.warehouse.entity.WarehouseOrderTaskDetailEntity"
+               id="warehouseOrderTaskDetailMap">
         <result property="id" column="id"/>
         <result property="skuId" column="sku_id"/>
         <result property="skuName" column="sku_name"/>

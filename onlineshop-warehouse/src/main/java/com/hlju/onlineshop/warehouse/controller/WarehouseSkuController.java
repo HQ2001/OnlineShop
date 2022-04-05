@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.warehouse.entity.WarehouseSkuEntity;
 import com.hlju.onlineshop.warehouse.service.WarehouseSkuService;
@@ -23,7 +19,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-13 22:50:18
  */
 @RestController
-@RequestMapping("/warehouse/warehousesku")
+@RequestMapping("/warehouse/warehouse-sku")
 public class WarehouseSkuController {
     @Autowired
     private WarehouseSkuService warehouseSkuService;
@@ -31,7 +27,7 @@ public class WarehouseSkuController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = warehouseSkuService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class WarehouseSkuController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            WarehouseSkuEntity warehouseSku = warehouseSkuService.getById(id);
+        WarehouseSkuEntity warehouseSku = warehouseSkuService.getById(id);
 
         return R.ok().put("warehouseSku", warehouseSku);
     }
@@ -52,9 +48,9 @@ public class WarehouseSkuController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody WarehouseSkuEntity warehouseSku) {
-            warehouseSkuService.save(warehouseSku);
+        warehouseSkuService.save(warehouseSku);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class WarehouseSkuController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody WarehouseSkuEntity warehouseSku) {
-            warehouseSkuService.updateById(warehouseSku);
+        warehouseSkuService.updateById(warehouseSku);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class WarehouseSkuController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            warehouseSkuService.removeByIds(Arrays.asList(ids));
+        warehouseSkuService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

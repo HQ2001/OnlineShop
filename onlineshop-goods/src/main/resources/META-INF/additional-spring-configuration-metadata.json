@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.cloud.alicloud.secret-key",
+      "type": "java.lang.String",
+      "description": "Description for spring.cloud.alicloud.secret-key."
+  }
+] }

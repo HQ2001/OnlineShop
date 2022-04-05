@@ -1,7 +1,9 @@
 package com.hlju.onlineshop.goods.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
+import com.hlju.onlineshop.goods.dto.SpuSaveDTO;
 import com.hlju.onlineshop.goods.entity.SpuInfoEntity;
 
 import java.util.Map;
@@ -16,5 +18,18 @@ import java.util.Map;
 public interface SpuInfoService extends IService<SpuInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 保存spu详细信息
+     * @param spuSaveDto dto
+     */
+    void saveSpuDetail(SpuSaveDTO spuSaveDto);
+
+    /**
+     * 根据条件查询spu详细信息
+     * @param params 查询条件
+     * @return page
+     */
+    PageUtils queryPageByCondition(Map<String, Object> params);
 }
 

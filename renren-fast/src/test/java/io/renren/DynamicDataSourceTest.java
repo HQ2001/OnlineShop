@@ -17,7 +17,7 @@ public class DynamicDataSourceTest {
     private DynamicDataSourceTestService dynamicDataSourceTestService;
 
     @Test
-    public void test(){
+    public void test() {
         Long id = 1L;
 
         dynamicDataSourceTestService.updateUser(id);

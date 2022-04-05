@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hlju.onlineshop.warehouse.dao.WarehouseSkuDao">
 
-    <resultMap type="com.hlju.onlineshop.warehouse.entity.WarehouseSkuEntity" id="warehouseSkuMap">
+    <resultMap type="com.hlju.onlineshop.warehouse.entity.WarehouseSkuEntity" id="baseResultMap">
         <result property="id" column="id"/>
         <result property="skuId" column="sku_id"/>
         <result property="warehouseId" column="warehouse_id"/>
@@ -11,6 +11,21 @@
         <result property="skuName" column="sku_name"/>
         <result property="stockLocked" column="stock_locked"/>
     </resultMap>
+    <select id="listBySkuIdsAndWarehouseIds" resultMap="baseResultMap">
+        select id, sku_id, warehouse_id, stock, sku_name, stock_locked
+        from wms_warehouse_sku
+        where (sku_id, warehouse_id) in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            (#{item.skuId}, #{item.warehouseId})
+        </foreach>
+    </select>
 
+    <update id="updateAddStocks">
+        update wms_warehouse_sku
+        set stock = stock +
+        <foreach collection="list" item="item" separator=" " open="case" close="end">
+            when sku_id = #{item.skuId} and warehouse_id = #{item.warehouseId} then #{item.stock}
+        </foreach>
+    </update>
 
 </mapper>

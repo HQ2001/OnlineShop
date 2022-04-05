@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.order.entity.OrderReturnReasonEntity;
 import com.hlju.onlineshop.order.service.OrderReturnReasonService;
@@ -31,7 +27,7 @@ public class OrderReturnReasonController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = orderReturnReasonService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class OrderReturnReasonController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            OrderReturnReasonEntity orderReturnReason = orderReturnReasonService.getById(id);
+        OrderReturnReasonEntity orderReturnReason = orderReturnReasonService.getById(id);
 
         return R.ok().put("orderReturnReason", orderReturnReason);
     }
@@ -52,9 +48,9 @@ public class OrderReturnReasonController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody OrderReturnReasonEntity orderReturnReason) {
-            orderReturnReasonService.save(orderReturnReason);
+        orderReturnReasonService.save(orderReturnReason);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class OrderReturnReasonController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody OrderReturnReasonEntity orderReturnReason) {
-            orderReturnReasonService.updateById(orderReturnReason);
+        orderReturnReasonService.updateById(orderReturnReason);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class OrderReturnReasonController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            orderReturnReasonService.removeByIds(Arrays.asList(ids));
+        orderReturnReasonService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

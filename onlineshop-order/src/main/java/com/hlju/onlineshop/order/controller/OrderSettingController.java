@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.order.entity.OrderSettingEntity;
 import com.hlju.onlineshop.order.service.OrderSettingService;
@@ -31,7 +27,7 @@ public class OrderSettingController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = orderSettingService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class OrderSettingController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            OrderSettingEntity orderSetting = orderSettingService.getById(id);
+        OrderSettingEntity orderSetting = orderSettingService.getById(id);
 
         return R.ok().put("orderSetting", orderSetting);
     }
@@ -52,9 +48,9 @@ public class OrderSettingController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody OrderSettingEntity orderSetting) {
-            orderSettingService.save(orderSetting);
+        orderSettingService.save(orderSetting);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class OrderSettingController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody OrderSettingEntity orderSetting) {
-            orderSettingService.updateById(orderSetting);
+        orderSettingService.updateById(orderSetting);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class OrderSettingController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            orderSettingService.removeByIds(Arrays.asList(ids));
+        orderSettingService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -3,7 +3,8 @@
 
 <mapper namespace="com.hlju.onlineshop.coupon.dao.CouponSpuCategoryRelationDao">
 
-    <resultMap type="com.hlju.onlineshop.coupon.entity.CouponSpuCategoryRelationEntity" id="couponSpuCategoryRelationMap">
+    <resultMap type="com.hlju.onlineshop.coupon.entity.CouponSpuCategoryRelationEntity"
+               id="couponSpuCategoryRelationMap">
         <result property="id" column="id"/>
         <result property="couponId" column="coupon_id"/>
         <result property="categoryId" column="category_id"/>

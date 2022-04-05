@@ -3,12 +3,12 @@ package com.hlju.onlineshop.goods.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.hlju.common.valid.AddGroup;
+import com.hlju.common.valid.UpdateGroup;
+import com.hlju.common.valid.UpdateStatusGroup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.goods.entity.BrandEntity;
 import com.hlju.onlineshop.goods.service.BrandService;
@@ -31,7 +31,7 @@ public class BrandController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = brandService.queryPage(params);
 
@@ -44,7 +44,7 @@ public class BrandController {
      */
     @RequestMapping("/info/{brandId}")
     public R info(@PathVariable("brandId") Long brandId) {
-            BrandEntity brand = brandService.getById(brandId);
+        BrandEntity brand = brandService.getById(brandId);
 
         return R.ok().put("brand", brand);
     }
@@ -52,9 +52,9 @@ public class BrandController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
-    public R save(@RequestBody BrandEntity brand) {
-            brandService.save(brand);
+    @PostMapping("/save")
+    public R save(@RequestBody @Validated({AddGroup.class}) BrandEntity brand) {
+        brandService.save(brand);
 
         return R.ok();
     }
@@ -62,9 +62,22 @@ public class BrandController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
-    public R update(@RequestBody BrandEntity brand) {
-            brandService.updateById(brand);
+    @PostMapping("/update")
+    public R update(@RequestBody @Validated({UpdateGroup.class}) BrandEntity brand) {
+        brandService.updateDetail(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改品牌状态
+     */
+    @RequestMapping("/update-status")
+    public R updateStatus(@RequestBody @Validated({UpdateStatusGroup.class}) BrandEntity brand) {
+        BrandEntity newBrand = new BrandEntity();
+        newBrand.setBrandId(brand.getBrandId());
+        newBrand.setShowStatus(brand.getShowStatus());
+        brandService.updateById(newBrand);
 
         return R.ok();
     }
@@ -72,9 +85,9 @@ public class BrandController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] brandIds) {
-            brandService.removeByIds(Arrays.asList(brandIds));
+        brandService.removeByIds(Arrays.asList(brandIds));
 
         return R.ok();
     }

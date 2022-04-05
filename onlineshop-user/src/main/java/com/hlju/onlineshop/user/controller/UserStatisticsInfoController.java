@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.user.entity.UserStatisticsInfoEntity;
 import com.hlju.onlineshop.user.service.UserStatisticsInfoService;
@@ -31,7 +27,7 @@ public class UserStatisticsInfoController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = userStatisticsInfoService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class UserStatisticsInfoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserStatisticsInfoEntity userStatisticsInfo = userStatisticsInfoService.getById(id);
+        UserStatisticsInfoEntity userStatisticsInfo = userStatisticsInfoService.getById(id);
 
         return R.ok().put("userStatisticsInfo", userStatisticsInfo);
     }
@@ -52,9 +48,9 @@ public class UserStatisticsInfoController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody UserStatisticsInfoEntity userStatisticsInfo) {
-            userStatisticsInfoService.save(userStatisticsInfo);
+        userStatisticsInfoService.save(userStatisticsInfo);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class UserStatisticsInfoController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody UserStatisticsInfoEntity userStatisticsInfo) {
-            userStatisticsInfoService.updateById(userStatisticsInfo);
+        userStatisticsInfoService.updateById(userStatisticsInfo);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class UserStatisticsInfoController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userStatisticsInfoService.removeByIds(Arrays.asList(ids));
+        userStatisticsInfoService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

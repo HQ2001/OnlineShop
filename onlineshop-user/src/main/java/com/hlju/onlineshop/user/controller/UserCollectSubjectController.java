@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hlju.onlineshop.user.entity.UserCollectSubjectEntity;
 import com.hlju.onlineshop.user.service.UserCollectSubjectService;
@@ -31,7 +27,7 @@ public class UserCollectSubjectController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = userCollectSubjectService.queryPage(params);
 
@@ -42,9 +38,9 @@ public class UserCollectSubjectController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
-            UserCollectSubjectEntity userCollectSubject = userCollectSubjectService.getById(id);
+        UserCollectSubjectEntity userCollectSubject = userCollectSubjectService.getById(id);
 
         return R.ok().put("userCollectSubject", userCollectSubject);
     }
@@ -52,9 +48,9 @@ public class UserCollectSubjectController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     public R save(@RequestBody UserCollectSubjectEntity userCollectSubject) {
-            userCollectSubjectService.save(userCollectSubject);
+        userCollectSubjectService.save(userCollectSubject);
 
         return R.ok();
     }
@@ -62,9 +58,9 @@ public class UserCollectSubjectController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public R update(@RequestBody UserCollectSubjectEntity userCollectSubject) {
-            userCollectSubjectService.updateById(userCollectSubject);
+        userCollectSubjectService.updateById(userCollectSubject);
 
         return R.ok();
     }
@@ -72,9 +68,9 @@ public class UserCollectSubjectController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     public R delete(@RequestBody Long[] ids) {
-            userCollectSubjectService.removeByIds(Arrays.asList(ids));
+        userCollectSubjectService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

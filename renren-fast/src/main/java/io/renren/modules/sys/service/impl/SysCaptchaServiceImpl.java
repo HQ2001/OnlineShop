@@ -26,7 +26,7 @@ public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaDao, SysCaptcha
 
     @Override
     public BufferedImage getCaptcha(String uuid) {
-        if(StringUtils.isBlank(uuid)){
+        if (StringUtils.isBlank(uuid)) {
             throw new RRException("uuid不能为空");
         }
         //生成文字验证码
@@ -45,14 +45,14 @@ public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaDao, SysCaptcha
     @Override
     public boolean validate(String uuid, String code) {
         SysCaptchaEntity captchaEntity = this.getOne(new QueryWrapper<SysCaptchaEntity>().eq("uuid", uuid));
-        if(captchaEntity == null){
+        if (captchaEntity == null) {
             return false;
         }
 
         //删除验证码
         this.removeById(uuid);
 
-        if(captchaEntity.getCode().equalsIgnoreCase(code) && captchaEntity.getExpireTime().getTime() >= System.currentTimeMillis()){
+        if (captchaEntity.getCode().equalsIgnoreCase(code) && captchaEntity.getExpireTime().getTime() >= System.currentTimeMillis()) {
             return true;
         }
 

@@ -11,5 +11,5 @@ import java.util.Map;
  */
 public interface SysOssService extends IService<SysOssEntity> {
 
-	PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(Map<String, Object> params);
 }
