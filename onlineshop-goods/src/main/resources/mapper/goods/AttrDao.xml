@@ -15,5 +15,14 @@
         <result property="categoryId" column="category_id"/>
         <result property="showDesc" column="show_desc"/>
     </resultMap>
+    <select id="listBySearchTypeAndAttrIds" resultMap="baeResultMap">
+        select attr_id, attr_name, search_type, icon, value_type, value_select, attr_type, enable, category_id, show_desc
+        from gms_attr
+        where search_type = #{searchType}
+        and attr_id in
+        <foreach collection="attrIds" item="attrId" open="(" close=")" separator=",">
+            #{attrId}
+        </foreach>
+    </select>
 
 </mapper>

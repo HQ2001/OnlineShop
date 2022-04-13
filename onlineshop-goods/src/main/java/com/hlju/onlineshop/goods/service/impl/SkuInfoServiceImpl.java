@@ -3,6 +3,7 @@ package com.hlju.onlineshop.goods.service.impl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -66,6 +67,11 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         if (StringUtils.isNotEmpty(categoryId) && Long.parseLong(categoryId) > 0L) {
             queryWrapper.eq("category_id", categoryId);
         }
+    }
+
+    @Override
+    public List<SkuInfoEntity> getSkusBySpuId(Long spuId) {
+        return baseMapper.listBySpuId(spuId);
     }
 
 }

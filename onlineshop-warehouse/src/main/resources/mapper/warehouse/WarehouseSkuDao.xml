@@ -28,4 +28,19 @@
         </foreach>
     </update>
 
+    <resultMap id="hasStockResultMap" type="com.hlju.onlineshop.warehouse.dto.SkuHasStockDTO">
+        <result property="skuId" column="sku_id"/>
+        <result property="hasStock" column="has_stock"/>
+    </resultMap>
+
+    <select id="getHasStockListBySkuIds" resultMap="hasStockResultMap">
+        select sku_id, sum(stock - stock_locked) > 0 as has_stock
+        from wms_warehouse_sku
+        where sku_id in
+        <foreach collection="skuIds" item="skuId" open="(" close=")" separator=",">
+            #{skuId}
+        </foreach>
+        group by sku_id
+    </select>
+
 </mapper>

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.goods.entity.SkuInfoEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,5 +32,7 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
      * @param params 条件的map
      */
     void setQueryCondition(QueryWrapper<?> queryWrapper, Map<String, Object> params);
+
+    List<SkuInfoEntity> getSkusBySpuId(Long spuId);
 }
 

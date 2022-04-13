@@ -3,6 +3,7 @@ package com.hlju.onlineshop.goods.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.goods.entity.CategoryEntity;
+import com.hlju.onlineshop.goods.vo.Catalog2VO;
 
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,18 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @param category 分类实体
      */
     void updateDetail(CategoryEntity category);
+
+    /**
+     * 获取1级分类
+     * @param level 等级
+     * @return 实体list
+     */
+    List<CategoryEntity> getLevel1Categories(int level);
+
+    /**
+     * 获取目录的json
+     * @return k - 一级分类id
+     */
+    Map<String, List<Catalog2VO>> getCatalogJson();
 }
 

@@ -14,5 +14,10 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <update id="updateSpuStatus">
+        update gms_spu_info
+        set publish_status = #{status}
+        where id = #{spuId}
+    </update>
 
 </mapper>

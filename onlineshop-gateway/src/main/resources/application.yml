@@ -36,3 +36,8 @@ spring:
             - Path=/api/**
           filters:
             - RewritePath=/api/(?<segment>.*), /renren-fast/$\{segment}
+
+        - id: onlineshop_host_route
+          uri: lb://onlineshop-goods
+          predicates:
+            - Host=**.onlineshop.hlju.com,onlineshop.hlju.com

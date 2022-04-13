@@ -1,5 +1,6 @@
 package com.hlju.common.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -13,6 +14,17 @@ import java.util.Map;
  */
 public class R extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
+
+    public <T> T getData(Class<T> clazz) {
+        Object data = this.get("data");
+        String s = JSON.toJSONString(data);
+        return JSON.parseObject(s, clazz);
+    }
+
+    public R setData(Object data) {
+        this.put("data", data);
+        return this;
+    }
 
     public R() {
         put("code", 0);

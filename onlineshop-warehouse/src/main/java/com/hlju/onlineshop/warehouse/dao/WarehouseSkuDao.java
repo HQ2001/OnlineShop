@@ -1,5 +1,6 @@
 package com.hlju.onlineshop.warehouse.dao;
 
+import com.hlju.onlineshop.warehouse.dto.SkuHasStockDTO;
 import com.hlju.onlineshop.warehouse.entity.WarehouseSkuEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,11 @@ public interface WarehouseSkuDao extends BaseMapper<WarehouseSkuEntity> {
      * @param exists 实体类
      */
     void updateAddStocks(@Param("list") List<WarehouseSkuEntity> exists);
+
+    /**
+     * 根据skuIds查询出相应商品是否有库存
+     * @param skuIds skuIds
+     * @return list
+     */
+    List<SkuHasStockDTO> getHasStockListBySkuIds(@Param("skuIds") List<Long> skuIds);
 }

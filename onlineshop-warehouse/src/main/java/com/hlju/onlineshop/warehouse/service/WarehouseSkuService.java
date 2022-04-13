@@ -23,5 +23,12 @@ public interface WarehouseSkuService extends IService<WarehouseSkuEntity> {
      * @param warehouseSkuEntities 实体list
      */
     void addStocks(List<WarehouseSkuEntity> warehouseSkuEntities);
+
+    /**
+     * 根据skuId查询出相应商品是否有库存
+     * @param skuIds skuIds
+     * @return k - skuId   v - 有没有库存
+     */
+    Map<Long, Boolean> getSkusHasStock(List<Long> skuIds);
 }
 

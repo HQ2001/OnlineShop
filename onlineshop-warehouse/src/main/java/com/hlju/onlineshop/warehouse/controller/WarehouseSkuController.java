@@ -1,6 +1,7 @@
 package com.hlju.onlineshop.warehouse.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,12 @@ public class WarehouseSkuController {
         warehouseSkuService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    @PostMapping("/has-stock")
+    public R getSkusHasStock(@RequestBody List<Long> skuIds) {
+        Map<Long, Boolean> data = warehouseSkuService.getSkusHasStock(skuIds);
+        return R.ok().setData(data);
     }
 
 }

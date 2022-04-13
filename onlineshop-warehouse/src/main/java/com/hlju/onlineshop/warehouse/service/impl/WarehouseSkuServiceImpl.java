@@ -1,6 +1,7 @@
 package com.hlju.onlineshop.warehouse.service.impl;
 
 import com.google.common.collect.Lists;
+import com.hlju.onlineshop.warehouse.dto.SkuHasStockDTO;
 import com.hlju.onlineshop.warehouse.feign.GoodsFeignService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -89,6 +90,23 @@ public class WarehouseSkuServiceImpl extends ServiceImpl<WarehouseSkuDao, Wareho
             log.error("sku名字设置失败 ", e);
         }
         this.saveBatch(inserts);
+    }
+
+    @Override
+    public Map<Long, Boolean> getSkusHasStock(List<Long> skuIds) {
+        List<SkuHasStockDTO> hasStockList = baseMapper.getHasStockListBySkuIds(skuIds);
+        Map<Long, Boolean> skusHasStockMap = hasStockList.stream()
+                .collect(Collectors.toMap(
+                        SkuHasStockDTO::getSkuId,
+                        SkuHasStockDTO::getHasStock
+                ));
+        skuIds.forEach(skuId -> {
+            // 没查到的设置为false
+            if (!skusHasStockMap.containsKey(skuId)) {
+                skusHasStockMap.put(skuId, false);
+            }
+        });
+        return skusHasStockMap;
     }
 
 }

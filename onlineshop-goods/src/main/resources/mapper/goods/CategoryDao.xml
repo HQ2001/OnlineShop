@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hlju.onlineshop.goods.dao.CategoryDao">
 
-    <resultMap type="com.hlju.onlineshop.goods.entity.CategoryEntity" id="categoryMap">
+    <resultMap type="com.hlju.onlineshop.goods.entity.CategoryEntity" id="baseResultMap">
         <result property="catId" column="cat_id"/>
         <result property="name" column="name"/>
         <result property="parentCid" column="parent_cid"/>
@@ -14,5 +14,10 @@
         <result property="goodUnit" column="good_unit"/>
         <result property="goodCount" column="good_count"/>
     </resultMap>
+    <select id="listByCateLevel" resultMap="baseResultMap">
+        select *
+        from gms_category
+        where cat_level = #{level}
+    </select>
 
 </mapper>

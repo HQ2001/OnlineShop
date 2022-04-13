@@ -28,8 +28,10 @@ class OnlineShopThirdPartyApplicationTests {
             ossClient.putObject(bucketName, objectName, new FileInputStream(content));
         } catch (OSSException oe) {
             System.out.println("Error Message:" + oe.getErrorMessage());
+            oe.printStackTrace();
         } catch (ClientException ce) {
             System.out.println("Error Message:" + ce.getMessage());
+            ce.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {

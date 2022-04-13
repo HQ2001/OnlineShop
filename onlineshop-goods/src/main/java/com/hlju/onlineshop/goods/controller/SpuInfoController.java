@@ -35,7 +35,6 @@ public class SpuInfoController {
         return R.ok().put("page", page);
     }
 
-
     /**
      * 信息
      */
@@ -47,11 +46,20 @@ public class SpuInfoController {
     }
 
     /**
+     * 上架
+     */
+    @PostMapping("/up/{id}")
+    public R spuUp(@PathVariable("id") Long id) {
+        spuInfoService.up(id);
+
+        return R.ok();
+    }
+
+    /**
      * 保存
      */
     @PostMapping("/save")
     public R save(@RequestBody SpuSaveDTO spuSaveDto) {
-        // spuInfoService.save(spuInfo);
         spuInfoService.saveSpuDetail(spuSaveDto);
 
         return R.ok();
