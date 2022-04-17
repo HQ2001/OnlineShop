@@ -64,8 +64,6 @@ public class AttrGroupController {
         return R.ok().put("page", page);
     }
 
-    // /${this.spu.categoryId}/withattr
-
     @GetMapping("/{categoryId}/with-attr")
     public R getAttrGroupWithAttrsByCategoryId(@PathVariable("categoryId") Long categoryId) {
         List<AttrGroupWithAttrsVO> data = attrGroupService.getAttrGroupWithAttrsByCategoryId(categoryId);

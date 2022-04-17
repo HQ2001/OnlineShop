@@ -45,4 +45,4 @@ spring:
         - id: onlineshop_host_route
           uri: lb://onlineshop-goods
           predicates:
-            - Host=onlineshop.hlju.com
+            - Host=onlineshop.hlju.com, info.onlineshop.hlju.com

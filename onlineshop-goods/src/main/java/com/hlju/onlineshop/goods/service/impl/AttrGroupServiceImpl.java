@@ -7,6 +7,7 @@ import com.hlju.onlineshop.goods.dao.AttrDao;
 import com.hlju.onlineshop.goods.entity.AttrAttrGroupRelationEntity;
 import com.hlju.onlineshop.goods.entity.AttrEntity;
 import com.hlju.onlineshop.goods.vo.AttrGroupWithAttrsVO;
+import com.hlju.onlineshop.goods.vo.SkuInfoDetailVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +119,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
                     vo.setAttrs(attrs);
                     return vo;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SkuInfoDetailVO.AttrGroupVO> getAttrGroupWithAttrsBySpuId(Long spuId) {
+        // 根据spuId查询出所有的属性值
+        // 根据查出来的属性id去【属性、属性分组】表中查出相应的分组id
+        // 根据属性分组id查询出属性名
+        return null;
     }
 
 }

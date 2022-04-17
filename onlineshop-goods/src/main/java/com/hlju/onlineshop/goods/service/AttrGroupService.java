@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.goods.entity.AttrGroupEntity;
 import com.hlju.onlineshop.goods.vo.AttrGroupWithAttrsVO;
+import com.hlju.onlineshop.goods.vo.SkuInfoDetailVO;
 
 import java.util.List;
 import java.util.Map;
@@ -33,5 +34,12 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @return vo的list
      */
     List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCategoryId(Long categoryId);
+
+    /**
+     * 根据spuId查询出当前商品对应的所有属性分组信息，包含属性分组下的基础属性
+     * @param spuId spuId
+     * @return vo
+     */
+    List<SkuInfoDetailVO.AttrGroupVO> getAttrGroupWithAttrsBySpuId(Long spuId);
 }
 

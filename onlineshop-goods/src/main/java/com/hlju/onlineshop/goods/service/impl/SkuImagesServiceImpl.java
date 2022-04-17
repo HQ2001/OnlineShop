@@ -2,6 +2,7 @@ package com.hlju.onlineshop.goods.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -26,6 +27,11 @@ public class SkuImagesServiceImpl extends ServiceImpl<SkuImagesDao, SkuImagesEnt
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<SkuImagesEntity> listBySkuId(Long skuId) {
+        return baseMapper.listBySkuId(skuId);
     }
 
 }

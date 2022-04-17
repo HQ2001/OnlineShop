@@ -51,6 +51,10 @@ public class SpuInfoEntity implements Serializable {
      */
     private Integer publishStatus;
     /**
+     * 商品介绍
+     */
+    private String description;
+    /**
      *
      */
     private Date createTime;

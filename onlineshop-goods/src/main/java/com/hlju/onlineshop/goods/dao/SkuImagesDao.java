@@ -3,6 +3,9 @@ package com.hlju.onlineshop.goods.dao;
 import com.hlju.onlineshop.goods.entity.SkuImagesEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * sku图片
@@ -14,4 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SkuImagesDao extends BaseMapper<SkuImagesEntity> {
 
+    List<SkuImagesEntity> listBySkuId(@Param("skuId") Long skuId);
 }

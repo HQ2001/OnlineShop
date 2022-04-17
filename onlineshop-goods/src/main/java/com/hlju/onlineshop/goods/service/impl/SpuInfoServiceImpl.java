@@ -38,7 +38,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("spuInfoService")
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> implements SpuInfoService {
 
-    private final SpuInfoDescDao spuInfoDescDao;
     private final SpuImagesService spuImagesService;
     private final AttrDao attrDao;
     private final GoodAttrValueService attrValueService;
@@ -52,8 +51,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     private final SearchFeignService searchFeignService;
 
     @Autowired
-    SpuInfoServiceImpl(SpuInfoDescDao spuInfoDescDao,
-                       SpuImagesService spuImagesService,
+    SpuInfoServiceImpl(SpuImagesService spuImagesService,
                        AttrDao attrDao,
                        GoodAttrValueService attrValueService,
                        SkuInfoService skuInfoService,
@@ -64,7 +62,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                        CategoryService categoryService,
                        BrandService brandService,
                        SearchFeignService searchFeignService) {
-        this.spuInfoDescDao = spuInfoDescDao;
         this.spuImagesService = spuImagesService;
         this.attrDao = attrDao;
         this.attrValueService = attrValueService;
@@ -95,15 +92,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // 保存spu基本信息 spu_info
         SpuInfoEntity spuInfoEntity = new SpuInfoEntity();
         BeanUtils.copyProperties(spuSaveDto, spuInfoEntity);
+        List<String> descriptions = spuSaveDto.getDescription();
+        spuInfoEntity.setDescription(StringUtils.join(descriptions, ","));
         this.save(spuInfoEntity);
         Long spuId = spuInfoEntity.getId();
-
-        // 保存spu描述图片 spu_info_desc
-        SpuInfoDescEntity descEntity = new SpuInfoDescEntity();
-        descEntity.setSpuId(spuId);
-        List<String> descriptions = spuSaveDto.getDescription();
-        descEntity.setDescription(StringUtils.join(descriptions, ","));
-        spuInfoDescDao.insert(descEntity);
 
         // 保存spu图片集 spu_images
         spuImagesService.saveImagesWithSpuId(spuId, spuSaveDto.getImages());

@@ -1,6 +1,11 @@
 package com.hlju.onlineshop.goods.service.impl;
 
+import com.hlju.onlineshop.goods.entity.SkuImagesEntity;
+import com.hlju.onlineshop.goods.service.AttrGroupService;
+import com.hlju.onlineshop.goods.service.SkuImagesService;
+import com.hlju.onlineshop.goods.vo.SkuInfoDetailVO;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +24,16 @@ import com.hlju.onlineshop.goods.service.SkuInfoService;
 
 @Service("skuInfoService")
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> implements SkuInfoService {
+
+    private final SkuImagesService skuImagesService;
+    private final AttrGroupService attrGroupService;
+
+    @Autowired
+    SkuInfoServiceImpl(SkuImagesService skuImagesService,
+                       AttrGroupService attrGroupService) {
+        this.skuImagesService = skuImagesService;
+        this.attrGroupService = attrGroupService;
+    }
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -72,6 +87,29 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Override
     public List<SkuInfoEntity> getSkusBySpuId(Long spuId) {
         return baseMapper.listBySpuId(spuId);
+    }
+
+    @Override
+    public SkuInfoDetailVO infoDetail(Long skuId) {
+        SkuInfoDetailVO vo = new SkuInfoDetailVO();
+        // sku基本信息 gms_sku_info
+        SkuInfoEntity skuInfoEntity = baseMapper.selectById(skuId);
+        vo.setSkuInfoEntity(skuInfoEntity);
+
+        // sku图片信息 gms_sku_images
+        List<SkuImagesEntity> skuImages = skuImagesService.listBySkuId(skuId);
+        vo.setSkuImages(skuImages);
+
+        Long spuId = skuInfoEntity.getSpuId();
+
+        // 获取spu销售属性组合(其他sku)
+        // vo.setSaleAttrs();
+
+        // spu的规格参数信息(基础属性，属性组-属性)
+        List<SkuInfoDetailVO.AttrGroupVO> attrGroups = attrGroupService.getAttrGroupWithAttrsBySpuId(spuId);
+        vo.setAttrGroups(attrGroups);
+
+        return vo;
     }
 
 }
