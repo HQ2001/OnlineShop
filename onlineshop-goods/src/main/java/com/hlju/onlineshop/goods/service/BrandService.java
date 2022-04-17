@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.goods.entity.BrandEntity;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,5 +25,12 @@ public interface BrandService extends IService<BrandEntity> {
      * @param brand 品牌实体
      */
     void updateDetail(BrandEntity brand);
+
+    /**
+     * 根据ids查询实体
+     * @param brandIds 品牌ids
+     * @return 实体list
+     */
+    List<BrandEntity> listByIds(List<Long> brandIds);
 }
 

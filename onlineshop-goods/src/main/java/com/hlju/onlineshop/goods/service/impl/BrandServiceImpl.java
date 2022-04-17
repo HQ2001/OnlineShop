@@ -6,6 +6,7 @@ import com.hlju.onlineshop.goods.entity.CategoryBrandRelationEntity;
 import com.hlju.onlineshop.goods.service.CategoryBrandRelationService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -60,6 +61,12 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         if (StringUtils.isNotEmpty(brand.getName())) {
             categoryBrandRelationService.updateBrand(brand);
         }
+    }
+
+    @Cacheable(value = {"brands"}, key = "#root.methodName+#root.args")
+    @Override
+    public List<BrandEntity> listByIds(List<Long> brandIds)  {
+        return baseMapper.listByIds(brandIds);
     }
 
 }

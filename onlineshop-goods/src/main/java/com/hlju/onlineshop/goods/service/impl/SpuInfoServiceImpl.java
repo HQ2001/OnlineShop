@@ -1,5 +1,6 @@
 package com.hlju.onlineshop.goods.service.impl;
 
+import com.alibaba.fastjson.TypeReference;
 import com.google.common.collect.Lists;
 import com.hlju.common.enums.goods.AttrSearchTypeEnum;
 import com.hlju.common.enums.goods.GoodStatusEnum;
@@ -253,9 +254,9 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         List<Long> skuIds = skus.stream().map(SkuInfoEntity::getSkuId).collect(Collectors.toList());
 
         // 远程调用获取是否有库存
-        Map<String, Boolean> hasStockMap = null;
+        Map<Long, Boolean> hasStockMap = null;
         try {
-            hasStockMap = warehouseFeignService.getSkusHasStock(skuIds).getData(Map.class);
+            hasStockMap = warehouseFeignService.getSkusHasStock(skuIds).getData(new TypeReference<Map<Long, Boolean>>(){});
             System.out.println(hasStockMap.keySet());
         } catch (Exception e) {
             log.error("库存服务异常{}", e);
@@ -271,7 +272,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 .collect(Collectors.toMap(CategoryEntity::getCatId, CategoryEntity::getName));
         Map<Long, BrandEntity> brandIdMap = brandService.listByIds(brandIds).stream()
                 .collect(Collectors.toMap(BrandEntity::getBrandId, item -> item));
-        Map<String, Boolean> finalHasStockMap = hasStockMap;
+        Map<Long, Boolean> finalHasStockMap = hasStockMap;
         skus.forEach(skuInfoEntity -> {
             // 封装成es中的数据
             SkuEsModel skuEsModel = new SkuEsModel();
@@ -280,7 +281,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             skuEsModel.setSkuImg(skuInfoEntity.getSkuDefaultImg());
 
             if (Objects.nonNull(finalHasStockMap)) {
-                Boolean hasStock = finalHasStockMap.get(skuEsModel.getSkuId().toString());
+                Boolean hasStock = finalHasStockMap.get(skuEsModel.getSkuId());
                 skuEsModel.setHasStock(hasStock);
             } else {
                 // 远程调用失败默认有库存

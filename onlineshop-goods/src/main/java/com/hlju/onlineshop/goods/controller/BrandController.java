@@ -1,6 +1,7 @@
 package com.hlju.onlineshop.goods.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import com.hlju.common.valid.AddGroup;
@@ -47,6 +48,13 @@ public class BrandController {
         BrandEntity brand = brandService.getById(brandId);
 
         return R.ok().put("brand", brand);
+    }
+
+    @GetMapping("/list-by-ids")
+    public R brandsByBrandIds(@RequestParam("brandIds") List<Long> brandIds) {
+        List<BrandEntity> brands = brandService.listByIds(brandIds);
+
+        return R.ok().put("brands", brands);
     }
 
     /**

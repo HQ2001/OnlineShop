@@ -87,6 +87,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(value = {"categories"}, key = "#root.methodName+#root.args")
+    @Override
+    public List<CategoryEntity> listByIds(List<Long> categoryIds) {
+        return baseMapper.listByIds(categoryIds);
+    }
+
     /**
      * 获取子分类
      *

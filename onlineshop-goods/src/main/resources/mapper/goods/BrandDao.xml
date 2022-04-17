@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hlju.onlineshop.goods.dao.BrandDao">
 
-    <resultMap type="com.hlju.onlineshop.goods.entity.BrandEntity" id="brandMap">
+    <resultMap type="com.hlju.onlineshop.goods.entity.BrandEntity" id="baseResultMap">
         <result property="brandId" column="brand_id"/>
         <result property="name" column="name"/>
         <result property="logo" column="logo"/>
@@ -12,5 +12,13 @@
         <result property="firstLetter" column="first_letter"/>
         <result property="sort" column="sort"/>
     </resultMap>
+    <select id="listByIds" resultMap="baseResultMap">
+        select brand_id, name, logo, description, show_status, first_letter, sort
+        from gms_brand
+        where brand_id in
+        <foreach collection="brandIds" item="brandId" open="(" close=")" separator=",">
+            #{brandId}
+        </foreach>
+    </select>
 
 </mapper>

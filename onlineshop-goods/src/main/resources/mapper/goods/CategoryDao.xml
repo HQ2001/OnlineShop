@@ -19,5 +19,13 @@
         from gms_category
         where cat_level = #{level}
     </select>
+    <select id="listByIds" resultMap="baseResultMap">
+        select *
+        from gms_category
+        where cat_id in
+        <foreach collection="categoryIds" item="categoryId" open="(" close=")" separator=",">
+            #{categoryId}
+        </foreach>
+    </select>
 
 </mapper>

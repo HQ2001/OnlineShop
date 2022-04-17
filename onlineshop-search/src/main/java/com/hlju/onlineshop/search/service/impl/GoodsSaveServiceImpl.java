@@ -2,7 +2,7 @@ package com.hlju.onlineshop.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.hlju.common.to.es.SkuEsModel;
-import com.hlju.onlineshop.search.EsConstant;
+import com.hlju.onlineshop.search.constant.EsConstant;
 import com.hlju.onlineshop.search.conf.ElasticSearchConfig;
 import com.hlju.onlineshop.search.service.GoodsSaveService;
 import lombok.extern.slf4j.Slf4j;

@@ -18,4 +18,6 @@ import java.util.List;
 public interface CategoryDao extends BaseMapper<CategoryEntity> {
 
     List<CategoryEntity> listByCateLevel(@Param("level") int level);
+
+    List<CategoryEntity> listByIds(@Param("categoryIds") List<Long> categoryIds);
 }

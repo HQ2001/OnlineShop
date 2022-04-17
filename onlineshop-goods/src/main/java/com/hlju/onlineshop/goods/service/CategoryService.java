@@ -27,6 +27,13 @@ public interface CategoryService extends IService<CategoryEntity> {
     List<CategoryEntity> listByTree();
 
     /**
+     * 根据ids查询实体
+     * @param categoryIds 分类ids
+     * @return 实体list
+     */
+    List<CategoryEntity> listByIds(List<Long> categoryIds);
+
+    /**
      * 通过id删除相应菜单
      * @param catIds 分类id数组
      */

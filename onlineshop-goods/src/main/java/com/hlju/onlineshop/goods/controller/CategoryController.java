@@ -35,6 +35,13 @@ public class CategoryController {
         return R.ok().put("data", entities);
     }
 
+    @GetMapping("/list-by-ids")
+    public R categoriesByCategoryIds(@RequestParam("categoryIds") List<Long> categoryIds) {
+        List<CategoryEntity> categories = categoryService.listByIds(categoryIds);
+
+        return R.ok().put("categories", categories);
+    }
+
 
     /**
      * 信息
