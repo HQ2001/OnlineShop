@@ -41,5 +41,13 @@
             #{groupId}
         </foreach>
     </select>
+    <select id="listByAttrIds" resultMap="baseResultMap">
+        select id, attr_id, attr_group_id, attr_sort
+        from gms_attr_attr_group_relation
+        where attr_id in
+        <foreach collection="attrIds" item="attrId" open="(" close=")" separator=",">
+            #{attrId}
+        </foreach>
+    </select>
 
 </mapper>

@@ -6,6 +6,8 @@ import com.hlju.onlineshop.goods.dao.AttrAttrGroupRelationDao;
 import com.hlju.onlineshop.goods.dao.AttrDao;
 import com.hlju.onlineshop.goods.entity.AttrAttrGroupRelationEntity;
 import com.hlju.onlineshop.goods.entity.AttrEntity;
+import com.hlju.onlineshop.goods.entity.GoodAttrValueEntity;
+import com.hlju.onlineshop.goods.service.GoodAttrValueService;
 import com.hlju.onlineshop.goods.vo.AttrGroupWithAttrsVO;
 import com.hlju.onlineshop.goods.vo.SkuInfoDetailVO;
 import org.apache.commons.lang.StringUtils;
@@ -13,8 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -34,12 +35,15 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     private final AttrAttrGroupRelationDao relationDao;
     private final AttrDao attrDao;
+    private final GoodAttrValueService attrValueService;
 
     @Autowired
     AttrGroupServiceImpl(AttrAttrGroupRelationDao relationDao,
-                         AttrDao attrDao) {
+                         AttrDao attrDao,
+                         GoodAttrValueService attrValueService) {
         this.relationDao = relationDao;
         this.attrDao = attrDao;
+        this.attrValueService = attrValueService;
     }
 
     @Override
@@ -124,9 +128,45 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     @Override
     public List<SkuInfoDetailVO.AttrGroupVO> getAttrGroupWithAttrsBySpuId(Long spuId) {
         // 根据spuId查询出所有的属性值
+        List<GoodAttrValueEntity> attrValues = attrValueService.baseAttrListForSpu(spuId);
+        Map<Long, GoodAttrValueEntity> attrIdMap = attrValues.stream()
+                .collect(Collectors.toMap(GoodAttrValueEntity::getAttrId, item -> item));
         // 根据查出来的属性id去【属性、属性分组】表中查出相应的分组id
+        List<AttrAttrGroupRelationEntity> relations = relationDao.listByAttrIds(Lists.newArrayList(attrIdMap.keySet()));
+        Map<Long, List<Long>> attrGroupIdAndAttrIdsMap = relations.stream()
+                .collect(Collectors.groupingBy(
+                        AttrAttrGroupRelationEntity::getAttrGroupId,
+                        Collectors.mapping(
+                                AttrAttrGroupRelationEntity::getAttrId,
+                                Collectors.toList()
+                        )
+                ));
         // 根据属性分组id查询出属性名
-        return null;
+        List<AttrGroupEntity> groups = this.listByIds(attrGroupIdAndAttrIdsMap.keySet());
+        List<SkuInfoDetailVO.AttrGroupVO> groupVOS = new ArrayList<>();
+        groups.forEach(group -> {
+            SkuInfoDetailVO.AttrGroupVO groupVO = new SkuInfoDetailVO.AttrGroupVO();
+            groupVO.setGroupName(group.getAttrGroupName());
+            List<SkuInfoDetailVO.BaseAttrVO> baseBaseAttrVOS = new ArrayList<>();
+            // 当前属性组下所有属性id
+            List<Long> attrIds = attrGroupIdAndAttrIdsMap.get(group.getAttrGroupId());
+            if (Objects.isNull(attrIds)) {
+                return;
+            }
+            attrIds.forEach(attrId -> {
+                SkuInfoDetailVO.BaseAttrVO baseAttrVO = new SkuInfoDetailVO.BaseAttrVO();
+                GoodAttrValueEntity attr = attrIdMap.get(attrId);
+                if (Objects.isNull(attr)) {
+                    return;
+                }
+                baseAttrVO.setAttrName(attr.getAttrName());
+                baseAttrVO.setAttrValues(attr.getAttrValue());
+                baseBaseAttrVOS.add(baseAttrVO);
+            });
+            groupVO.setBaseAttrs(baseBaseAttrVOS);
+            groupVOS.add(groupVO);
+        });
+        return groupVOS;
     }
 
 }

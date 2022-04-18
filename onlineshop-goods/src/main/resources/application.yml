@@ -42,3 +42,9 @@ mybatis-plus:
 logging:
   level:
     com.hlju.onlineshop.goods: debug
+
+onlineshop:
+  thread:
+    core-size: 50
+    max-size: 200
+    keep-alive-time: 10

@@ -93,7 +93,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         SpuInfoEntity spuInfoEntity = new SpuInfoEntity();
         BeanUtils.copyProperties(spuSaveDto, spuInfoEntity);
         List<String> descriptions = spuSaveDto.getDescription();
-        spuInfoEntity.setDescription(StringUtils.join(descriptions, ","));
+        spuInfoEntity.setDescriptionImages(StringUtils.join(descriptions, ","));
         this.save(spuInfoEntity);
         Long spuId = spuInfoEntity.getId();
 

@@ -53,7 +53,7 @@ public class SpuInfoEntity implements Serializable {
     /**
      * 商品介绍
      */
-    private String description;
+    private String descriptionImages;
     /**
      *
      */

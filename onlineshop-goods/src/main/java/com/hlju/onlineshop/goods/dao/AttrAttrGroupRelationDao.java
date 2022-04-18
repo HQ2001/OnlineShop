@@ -28,4 +28,6 @@ public interface AttrAttrGroupRelationDao extends BaseMapper<AttrAttrGroupRelati
     List<AttrAttrGroupRelationEntity> listByAttrGroupIds(@Param("list") List<Long> attrGroupId);
 
     void deleteByRelationList(@Param("list") List<AttrAttrGroupRelationDTO> relationDtoList);
+
+    List<AttrAttrGroupRelationEntity> listByAttrIds(@Param("attrIds") List<Long> attrIds);
 }

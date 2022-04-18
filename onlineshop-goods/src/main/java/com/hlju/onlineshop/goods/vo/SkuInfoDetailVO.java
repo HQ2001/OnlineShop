@@ -25,6 +25,11 @@ public class SkuInfoDetailVO {
     private List<SkuImagesEntity> skuImages;
 
     /**
+     * spu介绍（图片）
+     */
+    private String spuDescriptionImages;
+
+    /**
      * spu销售属性组合(其他sku)
      */
     private List<SaleAttrVO> saleAttrs;
@@ -33,6 +38,11 @@ public class SkuInfoDetailVO {
      * spu的规格参数信息(属性组-属性)
      */
     List<AttrGroupVO> attrGroups;
+
+    /**
+     * 是否有货
+     */
+    private Boolean hasStock = true;
 
     @Data
     public static class AttrGroupVO {
@@ -43,13 +53,20 @@ public class SkuInfoDetailVO {
     @Data
     public static class BaseAttrVO {
         private String attrName;
-        private String attrValue;
+        private String attrValues;
     }
 
     @Data
     public static class SaleAttrVO {
-        private Long attrId;
         private String attrName;
-        private List<String> attrValues;
+        private List<AttrValueWithSkuIdVO> attrValues;
+    }
+
+    @Data
+    public static class AttrValueWithSkuIdVO {
+        private String attrValue;
+        // 用于确定不同销售属性值进行组合后的skuId
+        // 两个销售属性值组合时候，重合的那个就是组合成的skuId
+        private List<Long> skuIds;
     }
 }

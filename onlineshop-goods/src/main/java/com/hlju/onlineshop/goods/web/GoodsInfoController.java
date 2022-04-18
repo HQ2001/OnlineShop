@@ -4,6 +4,7 @@ import com.hlju.onlineshop.goods.service.SkuInfoService;
 import com.hlju.onlineshop.goods.vo.SkuInfoDetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,10 +21,10 @@ public class GoodsInfoController {
     private SkuInfoService skuInfoService;
 
     @GetMapping("/{skuId}.html")
-    public String skuInfo(@PathVariable("skuId") Long skuId) {
-        System.out.println("准备查询" + skuId + "商品");
+    public String skuInfo(@PathVariable("skuId") Long skuId, Model model) {
         SkuInfoDetailVO vo = skuInfoService.infoDetail(skuId);
-        return "info";
+        model.addAttribute("info", vo);
+        return "infoDetail";
     }
 
 }

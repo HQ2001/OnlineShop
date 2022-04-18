@@ -1,15 +1,19 @@
 package com.hlju.onlineshop.goods.service.impl;
 
 import com.hlju.onlineshop.goods.entity.SkuImagesEntity;
-import com.hlju.onlineshop.goods.service.AttrGroupService;
-import com.hlju.onlineshop.goods.service.SkuImagesService;
+import com.hlju.onlineshop.goods.entity.SpuInfoEntity;
+import com.hlju.onlineshop.goods.service.*;
 import com.hlju.onlineshop.goods.vo.SkuInfoDetailVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -19,7 +23,6 @@ import com.hlju.common.utils.Query;
 
 import com.hlju.onlineshop.goods.dao.SkuInfoDao;
 import com.hlju.onlineshop.goods.entity.SkuInfoEntity;
-import com.hlju.onlineshop.goods.service.SkuInfoService;
 
 
 @Service("skuInfoService")
@@ -27,12 +30,21 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     private final SkuImagesService skuImagesService;
     private final AttrGroupService attrGroupService;
+    private final SkuSaleAttrValueService saleAttrValueService;
+    private final SpuInfoService spuInfoService;
+    private final ThreadPoolExecutor executor;
 
     @Autowired
     SkuInfoServiceImpl(SkuImagesService skuImagesService,
-                       AttrGroupService attrGroupService) {
+                       AttrGroupService attrGroupService,
+                       SkuSaleAttrValueService saleAttrValueService,
+                       @Lazy SpuInfoService spuInfoService,
+                       ThreadPoolExecutor executor) {
         this.skuImagesService = skuImagesService;
         this.attrGroupService = attrGroupService;
+        this.saleAttrValueService = saleAttrValueService;
+        this.spuInfoService = spuInfoService;
+        this.executor = executor;
     }
 
     @Override
@@ -92,23 +104,47 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Override
     public SkuInfoDetailVO infoDetail(Long skuId) {
         SkuInfoDetailVO vo = new SkuInfoDetailVO();
-        // sku基本信息 gms_sku_info
-        SkuInfoEntity skuInfoEntity = baseMapper.selectById(skuId);
-        vo.setSkuInfoEntity(skuInfoEntity);
+        CountDownLatch countDownLatch = new CountDownLatch(5);
+        CompletableFuture<SkuInfoEntity> infoFuture = CompletableFuture.supplyAsync(() -> {
+            // sku基本信息 gms_sku_info
+            SkuInfoEntity skuInfoEntity = baseMapper.selectById(skuId);
+            vo.setSkuInfoEntity(skuInfoEntity);
+            countDownLatch.countDown();
+            return skuInfoEntity;
+        }, executor);
 
-        // sku图片信息 gms_sku_images
-        List<SkuImagesEntity> skuImages = skuImagesService.listBySkuId(skuId);
-        vo.setSkuImages(skuImages);
+        infoFuture.thenAcceptAsync(res -> {
+            // spu介绍（图片）
+            SpuInfoEntity spuInfoEntity = spuInfoService.getById(res.getSpuId());
+            vo.setSpuDescriptionImages(spuInfoEntity.getDescriptionImages());
+            countDownLatch.countDown();
+        }, executor);
 
-        Long spuId = skuInfoEntity.getSpuId();
+        infoFuture.thenAcceptAsync(res -> {
+            // 获取spu销售属性组合(其他sku)
+            List<SkuInfoDetailVO.SaleAttrVO> saleAttrs = saleAttrValueService.getSaleAttrsBySpuId(res.getSpuId());
+            vo.setSaleAttrs(saleAttrs);
+            countDownLatch.countDown();
+        }, executor);
 
-        // 获取spu销售属性组合(其他sku)
-        // vo.setSaleAttrs();
+        infoFuture.thenAcceptAsync(res -> {
+            // spu的规格参数信息(基础属性，属性组-属性)
+            List<SkuInfoDetailVO.AttrGroupVO> attrGroups = attrGroupService.getAttrGroupWithAttrsBySpuId(res.getSpuId());
+            vo.setAttrGroups(attrGroups);
+            countDownLatch.countDown();
+        }, executor);
 
-        // spu的规格参数信息(基础属性，属性组-属性)
-        List<SkuInfoDetailVO.AttrGroupVO> attrGroups = attrGroupService.getAttrGroupWithAttrsBySpuId(spuId);
-        vo.setAttrGroups(attrGroups);
-
+        CompletableFuture.runAsync(() -> {
+            // sku图片信息 gms_sku_images
+            List<SkuImagesEntity> skuImages = skuImagesService.listBySkuId(skuId);
+            vo.setSkuImages(skuImages);
+            countDownLatch.countDown();
+        }, executor);
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return vo;
     }
 
