@@ -2,7 +2,14 @@ package com.hlju.onlineshop.user.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
+import com.hlju.common.constant.AuthConstant;
+import com.hlju.common.exception.BizCodeEnum;
+import com.hlju.onlineshop.user.dto.UserLoginDTO;
+import com.hlju.onlineshop.user.dto.UserRegisterDTO;
+import com.hlju.onlineshop.user.exception.MobileExistsException;
+import com.hlju.onlineshop.user.exception.UsernameExistsException;
 import com.hlju.onlineshop.user.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +40,30 @@ public class UserController {
         userEntity.setNickname("郝强");
         R r = couponFeignService.userCoupons();
         return R.ok().put("coupons", r.get("coupons")).put("user", userEntity);
+    }
+
+    @PostMapping("/register")
+    public R register(@RequestBody UserRegisterDTO dto) {
+        try {
+            userService.register(dto);
+        } catch (UsernameExistsException e) {
+            return R.error(BizCodeEnum.USER_EXISTS_EXCEPTION.getCode(),
+                    BizCodeEnum.USER_EXISTS_EXCEPTION.getMsg());
+        } catch (MobileExistsException e) {
+            return R.error(BizCodeEnum.MOBILE_REGISTERED_EXCEPTION.getCode(),
+                    BizCodeEnum.MOBILE_REGISTERED_EXCEPTION.getMsg());
+        }
+        return R.ok();
+    }
+
+    @PostMapping("/login")
+    public R login(@RequestBody UserLoginDTO dto) {
+        UserEntity userEntity = userService.login(dto);
+        if (Objects.isNull(userEntity)) {
+            return R.error(BizCodeEnum.LOGIN_ACCOUNT_PASSWORD_INVALID_EXCEPTION.getCode(),
+                    BizCodeEnum.LOGIN_ACCOUNT_PASSWORD_INVALID_EXCEPTION.getMsg());
+        }
+        return R.ok().put(AuthConstant.LOGIN_USER, userEntity);
     }
 
     /**

@@ -1,8 +1,15 @@
 package com.hlju.onlineshop.thirdparty;
 
+import com.aliyun.dysmsapi20170525.Client;
+import com.aliyun.tea.*;
+import com.aliyun.dysmsapi20170525.*;
+import com.aliyun.dysmsapi20170525.models.*;
+import com.aliyun.teaopenapi.*;
+import com.aliyun.teaopenapi.models.*;
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
+import com.hlju.onlineshop.thirdparty.service.SmsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +22,14 @@ class OnlineShopThirdPartyApplicationTests {
 
     @Autowired
     private OSSClient ossClient;
+
+    @Autowired
+    private SmsService smsService;
+
+    @Test
+    public void smsTest() {
+        smsService.sendSmsCode("15504630661", "123456");
+    }
 
     @Test
     public void testUpload() {

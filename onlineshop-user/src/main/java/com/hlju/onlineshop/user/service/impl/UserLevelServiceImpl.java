@@ -28,4 +28,9 @@ public class UserLevelServiceImpl extends ServiceImpl<UserLevelDao, UserLevelEnt
         return new PageUtils(page);
     }
 
+    @Override
+    public UserLevelEntity getDefaultLevel() {
+        return baseMapper.getDefaultLevel();
+    }
+
 }

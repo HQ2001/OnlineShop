@@ -42,6 +42,11 @@ spring:
           predicates:
             - Host=search.onlineshop.hlju.com
 
+        - id: auth_route
+          uri: lb://onlineshop-auth
+          predicates:
+            - Host=auth.onlineshop.hlju.com
+
         - id: onlineshop_host_route
           uri: lb://onlineshop-goods
           predicates:

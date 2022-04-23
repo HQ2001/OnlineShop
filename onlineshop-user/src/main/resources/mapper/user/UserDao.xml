@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hlju.onlineshop.user.dao.UserDao">
 
-    <resultMap type="com.hlju.onlineshop.user.entity.UserEntity" id="userMap">
+    <resultMap type="com.hlju.onlineshop.user.entity.UserEntity" id="baseResultMap">
         <result property="id" column="id"/>
         <result property="levelId" column="level_id"/>
         <result property="username" column="username"/>
@@ -23,6 +23,22 @@
         <result property="status" column="status"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
+    <select id="countUserName" resultType="java.lang.Integer">
+        select count(*)
+        from ums_user
+        where username = #{userName}
+    </select>
 
+    <select id="countMobile" resultType="java.lang.Integer">
+        select count(*)
+        from ums_user
+        where mobile = #{mobile}
+    </select>
+    <select id="selectByLoginAccount" resultMap="baseResultMap">
+        select *
+        from ums_user
+        where username = #{loginAccount}
+           or mobile = #{loginAccount}
+    </select>
 
 </mapper>

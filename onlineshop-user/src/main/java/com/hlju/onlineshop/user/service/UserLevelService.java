@@ -16,5 +16,11 @@ import java.util.Map;
 public interface UserLevelService extends IService<UserLevelEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 获取默认等级
+     * @return 实体类
+     */
+    UserLevelEntity getDefaultLevel();
 }
 
