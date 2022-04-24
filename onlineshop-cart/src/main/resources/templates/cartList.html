@@ -22,8 +22,13 @@
 
             </ul>
             <ul class="header-right">
-                <li><a href="../登录页面\index.html" style="color: red;">你好，请登录</a></li>
-                <li><a href="../注册页面\index.html">免费注册</a></li>
+                <li>
+                    <a th:if="${session.loginUser != null}">你好，[[${session.loginUser.nickname}]]</a>
+                    <a href="http://auth.onlineshop.hlju.com/login.html" th:if="${session.loginUser == null}">你好，请登录</a>
+                </li>
+                <li>
+                    <a href="http://auth.onlineshop.hlju.com/register.html" th:if="${session.loginUser == null}">免费注册</a>
+                </li>
                 <li class="spacer"></li>
                 <li><a href="">我的订单</a></li>
                 <li class="spacer"></li>
@@ -50,7 +55,7 @@
                 <input type="button" value="搜索" class="one_right_btn">
             </div>
         </div>
-        <div class="one_search_load" th:if="${userId}==null">
+        <div class="one_search_load" th:if="${session.loginUser}==null">
             <img src="/static/cart/img/shop_07.jpg" class="one_load_wraing">
             <span>您还没有登录！登录后购物车的商品将保存到您账号中</span>
             <a href="#"><input type="button" onclick="login()" value="立即登录" class="one_load_btn"></a>
@@ -78,38 +83,44 @@
         </div>
 
         <div class="One_ShopCon">
-            <ul>
-                <li th:each="cartInfo:${cartList}">
+            <h1 th:if="${cart.cartItems == null || cart.cartItems.size() == 0}">
+                购物车中无商品<a href="http://onlineshop.hlju.com/">去购物</a>
+            </h1>
+            <ul th:if="${cart.cartItems != null && cart.cartItems.size() > 0}">
+                <li th:each="item:${cart.cartItems}">
                     <div></div>
 
                     <div>
                         <ol>
-                            <li><input type="checkbox" class="check" th:value="${cartInfo.skuId}"
+                            <li><input type="checkbox" class="check" th:value="${item.skuId}"
+                                       th:attr="skuId=${item.skuId}"
                                        onchange="checkSku(this)"
-                                       th:checked="(${cartInfo.isChecked}==1)?'true':'false'"/></li>
+                                       th:checked="${item.checked}"/></li>
                             <li>
-                                <dt><img th:src="${cartInfo.imgUrl}" src="/static/cart/img\shop1.jpg" alt=""></dt>
-                                <dd th:onclick="'toItem('+${cartInfo.skuId}+')'">
+                                <dt><img th:src="${item.image}" src="/static/cart/img\shop1.jpg" alt=""></dt>
+                                <dd th:onclick="'toItem('+${item.skuId}+')'" style="width: 300px;">
                                     <p>
-                                        <span th:text="${cartInfo.skuName}">TCL 55A950C 55英寸32核</span>
+                                        <span th:text="${item.title}">TCL 55A950C 55英寸32核</span>
+                                        <br />
+                                        <span th:each="attr:${item.skuAttrs}" th:text="'【' + ${attr} + '】'">【8+256】</span>
                                     </p>
                                 </dd>
                             </li>
                             <li>
-                                <p class="dj" th:text="'￥'+${cartInfo.skuPrice}">4599.00</p>
+                                <p class="dj" th:text="'￥' + ${#numbers.formatDecimal(item.price, 3, 2)}">4599.00</p>
                             </li>
                             <li>
-                                <p>
-                                    <span>-</span>
-                                    <span th:text="${cartInfo.skuNum}">5</span>
-                                    <span>+</span>
+                                <p th:attr="skuId=${item.skuId}">
+                                    <span class="countOpsBtn">-</span>
+                                    <span class="countOpsNum" th:text="${item.count}">5</span>
+                                    <span class="countOpsBtn">+</span>
                                 </p>
                             </li>
                             <li style="font-weight:bold">
-                                <p class="zj" th:text="'￥'+${cartInfo.totalPrice}">￥22995.00</p>
+                                <p class="zj" th:text="'￥' + ${#numbers.formatDecimal(item.getTotalPrice(), 3, 2)}">￥22995.00</p>
                             </li>
                             <li>
-                                <p>删除</p>
+                                <p class="deleteItemBtn" th:attr="skuId=${item.skuId}">删除</p>
                             </li>
                         </ol>
                     </div>
@@ -136,8 +147,8 @@
             </div>
             <div>
                 <ol>
-                    <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt">￥0.00</span></li>
-
+                    <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt">[['￥' + ${#numbers.formatDecimal(cart.getTotalAmount(), 3, 2)}]]</span></li>
+                    <li>优惠：[['￥' + ${#numbers.formatDecimal(cart.reduce, 1, 2)}]]</li>
                 </ol>
             </div>
             <div>
@@ -161,7 +172,7 @@
         </dl>
     </div>
     <div>
-        <button type="button">删除</button>
+        <button type="button" onclick="deleteItem()">删除</button>
 
     </div>
 </div>
@@ -180,6 +191,7 @@
     </p>
     <div>
         <dl>
+            <dt><img src="/static/cart/img/感叹三角形 (2).png" alt=""></dt>
             <dt><img src="/static/cart/img/感叹三角形 (2).png" alt=""></dt>
             <dd>
                 <li>移到关注</li>
@@ -209,6 +221,11 @@
 </body>
 <script src="/static/cart/js/index.js" charset="utf-8"></script>
 <script type="text/javascript">
+    if ($(".check[class='check']:checked").length == $(".check[class='check']").length) {
+        $(".allCheck").attr("checked", true);
+    } else {
+        $(".allCheck").attr("checked", false);
+    }
     function toTrade() {
         window.location.href = "http://cart.onlineshop.hlju.com/toTrade";
     }
@@ -219,7 +236,7 @@
 
     function login() {
         var s = encodeURIComponent("http://cart.onlineshop.hlju.com/");
-        window.location.href = "http://passport.atguigu.com/index?originUrl=" + s;
+        window.location.href = "http://auth.onlineshop.hlju.com/";
     }
 
     function checkSku(chkbox) {
@@ -391,17 +408,13 @@
     //购物车全选反选
     $(".One_ShopTop ul li:first-child .allCheck").click(function () {
         if ($(".One_ShopTop ul li:first-child .allCheck").is(":checked")) {
-            // $(".check").each(function(index){
             $(".check").prop("checked", true);
             $(".check").parent().parent().parent().css("background", "#fff4e8");
             $(".One_ShopBottom>div:first-child span:first-child .allCheck").prop("checked", true)
-            // })
         } else {
-            // $(".check").each(function(){
             $(".check").parent().parent().parent().css("background", "none");
             $(".check").prop("checked", false);
             $(".One_ShopBottom>div:first-child span:first-child .allCheck").prop("checked", false)
-            // })
         }
     })
     $(".One_ShopFootBuy>div:first-child ul li:first-child .allCheck").click(function () {
@@ -426,6 +439,9 @@
     })
     //如果子选择框没有选中则父选框取消全选
     $(".check").click(function () {
+        let skuId = $(this).attr("skuId");
+        let checked = $(this).prop("checked");
+        location.href = "http://cart.onlineshop.hlju.com/changeItemChecked?skuId=" + skuId + "&checked=" + checked;
         $(".check").each(function () {
             if ($(this).prop("checked") == true) {
                 $(".allCheck").prop("checked", false);
@@ -434,6 +450,9 @@
     })
     //子选择框全部选中复选框也选中
     $(".check").click(function () {
+        let skuId = $(this).attr("skuId");
+        let checked = $(this).prop("checked");
+        location.href = "http://cart.onlineshop.hlju.com/changeItemChecked?skuId=" + skuId + "&checked=" + checked;
         if ($(".check[class='check']:checked").length == $(".check[class='check']").length) {
             $(".allCheck").prop("checked", true);
         } else {
@@ -739,5 +758,21 @@
     }).mouseout(function () {
         $(this).children("p").children("img").attr("src", "/static/cart/img/one_mian_gwc1.png")
     })
+
+    $(".countOpsBtn").click(function () {
+        let skuId = $(this).parent().attr("skuId");
+        let num = $(this).parent().find(".countOpsNum").text();
+        location.href = "http://cart.onlineshop.hlju.com/changeItemNum?skuId=" + skuId + "&num=" + num;
+    })
+
+    var deleteId = 0;
+
+    $(".deleteItemBtn").click(function () {
+        deleteId = $(this).attr("skuId");
+    })
+
+    function deleteItem() {
+        location.href = "http://cart.onlineshop.hlju.com/deleteItem?skuId=" + deleteId;
+    }
 </script>
 </html>

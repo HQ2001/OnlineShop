@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -92,6 +93,14 @@ public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueDao
             vos.add(vo);
         });
         return vos;
+    }
+
+    @Override
+    public List<String> getSkuSaleAttrValues(Long skuId) {
+        List<SkuSaleAttrValueEntity> skuSaleAttrValues = baseMapper.listBySkuIds(Collections.singletonList(skuId));
+        return skuSaleAttrValues.stream()
+                .map(item -> item.getAttrName() + "：" + item.getAttrValue())
+                .collect(Collectors.toList());
     }
 
 }

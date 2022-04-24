@@ -25,5 +25,13 @@ public interface SkuSaleAttrValueService extends IService<SkuSaleAttrValueEntity
      * @return vo
      */
     List<SkuInfoDetailVO.SaleAttrVO> getSaleAttrsBySpuId(Long spuId);
+
+    /**
+     * 根据skuId查询出其相关的销售属性list
+     *  eg：[颜色：白色, 版本：8+256]
+     * @param skuId skuId
+     * @return 属性list
+     */
+    List<String> getSkuSaleAttrValues(Long skuId);
 }
 

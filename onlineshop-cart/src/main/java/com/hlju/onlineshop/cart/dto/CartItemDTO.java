@@ -21,6 +21,11 @@ public class CartItemDTO {
     private Long skuId;
 
     /**
+     * 标题
+     */
+    private String title;
+
+    /**
      * 是否选中，默认为true
      */
     private Boolean checked = true;
@@ -33,7 +38,7 @@ public class CartItemDTO {
     /**
      * 属性
      */
-    private List<String> skuAttr;
+    private List<String> skuAttrs;
 
     /**
      * 价格

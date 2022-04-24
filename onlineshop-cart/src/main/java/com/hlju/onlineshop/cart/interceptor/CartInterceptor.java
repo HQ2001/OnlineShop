@@ -46,7 +46,7 @@ public class CartInterceptor implements HandlerInterceptor {
             for (Cookie cookie : cookies) {
                 String name = cookie.getName();
                 if (Objects.equals(name, CartConstant.TEMP_USER_COOKIE_NAME)) {
-                    userInfoDTO.setUserKey(userInfoDTO.getUserKey());
+                    userInfoDTO.setUserKey(cookie.getValue());
                     userInfoDTO.setIsTempUser(false);
                 }
             }
@@ -71,7 +71,7 @@ public class CartInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         UserInfoDTO userInfoDTO = threadLocal.get();
         if (userInfoDTO.getIsTempUser()) {
-            Cookie cookie = new Cookie(AuthConstant.LOGIN_USER, userInfoDTO.getUserKey());
+            Cookie cookie = new Cookie(CartConstant.TEMP_USER_COOKIE_NAME, userInfoDTO.getUserKey());
             cookie.setDomain("onlineshop.hlju.com");
             cookie.setMaxAge(CartConstant.TEMP_USER_COOKIE_TIMEOUT);
             response.addCookie(cookie);

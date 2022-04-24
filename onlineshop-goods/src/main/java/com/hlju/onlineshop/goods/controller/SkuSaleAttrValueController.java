@@ -1,6 +1,7 @@
 package com.hlju.onlineshop.goods.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-14 11:13:55
  */
 @RestController
-@RequestMapping("/goods/skusaleattrvalue")
+@RequestMapping("/goods/sku-sale-attr-value")
 public class SkuSaleAttrValueController {
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
@@ -73,6 +74,11 @@ public class SkuSaleAttrValueController {
         skuSaleAttrValueService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    @GetMapping("/sale-attr/string-value")
+    public R getSkuSaleAttrValues(@RequestParam("skuId") Long skuId) {
+        return R.ok().put("list", skuSaleAttrValueService.getSkuSaleAttrValues(skuId));
     }
 
 }
