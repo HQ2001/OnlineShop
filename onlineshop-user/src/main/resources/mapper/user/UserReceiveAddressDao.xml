@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hlju.onlineshop.user.dao.UserReceiveAddressDao">
 
-    <resultMap type="com.hlju.onlineshop.user.entity.UserReceiveAddressEntity" id="userReceiveAddressMap">
+    <resultMap type="com.hlju.onlineshop.user.entity.UserReceiveAddressEntity" id="baseResultMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="name" column="name"/>
@@ -16,6 +16,11 @@
         <result property="areaCode" column="area_code"/>
         <result property="defaultStatus" column="default_status"/>
     </resultMap>
+    <select id="listByUserId" resultMap="baseResultMap">
+        select *
+        from ums_user_receive_address
+        where user_id = #{userId}
+    </select>
 
 
 </mapper>

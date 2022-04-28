@@ -1,20 +1,17 @@
 package com.hlju.onlineshop.cart.controller;
 
-import com.hlju.common.constant.AuthConstant;
-import com.hlju.common.constant.CartConstant;
 import com.hlju.onlineshop.cart.dto.CartDTO;
 import com.hlju.onlineshop.cart.dto.CartItemDTO;
-import com.hlju.onlineshop.cart.dto.UserInfoDTO;
-import com.hlju.onlineshop.cart.interceptor.CartInterceptor;
 import com.hlju.onlineshop.cart.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Objects;
+import java.util.List;
 
 /**
  * @author haoqiang
@@ -82,6 +79,16 @@ public class CartController {
     public String deleteItem(@RequestParam("skuId") Long skuId) {
         cartService.deleteItem(skuId);
         return "redirect:http://cart.onlineshop.hlju.com/";
+    }
+
+    /**
+     * 获取最新的已选中的购物项
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/cartItems")
+    public List<CartItemDTO> getUpToDateCheckedCartItems(@RequestParam("userId") Long userId) {
+        return cartService.getUpToDateCheckedCartItems(userId);
     }
 
 }

@@ -20,7 +20,9 @@ import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -144,6 +146,21 @@ public class CartServiceImpl implements CartService {
     public void deleteItem(Long skuId) {
         BoundHashOperations<String, Object, Object> cartOps = getCartOps();
         cartOps.delete(skuId.toString());
+    }
+
+    @Override
+    public List<CartItemDTO> getUpToDateCheckedCartItems(Long userId) {
+        // String cartKey = CartConstant.CART_PREFIX + userId;
+        List<CartItemDTO> cartItems = this.getCart().getCartItems().stream()
+                .filter(CartItemDTO::getChecked)
+                .collect(Collectors.toList());
+        List<Long> skuIds = cartItems.stream()
+                .map(CartItemDTO::getSkuId)
+                .collect(Collectors.toList());
+        Map<Long, BigDecimal> skuIdPriceMap = goodsFeignService.getUpToDatePrice(skuIds);
+        return cartItems.stream()
+                .peek(item -> item.setPrice(skuIdPriceMap.get(item.getSkuId())))
+                .collect(Collectors.toList());
     }
 
     /**

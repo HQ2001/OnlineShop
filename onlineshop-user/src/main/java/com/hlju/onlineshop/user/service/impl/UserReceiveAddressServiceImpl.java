@@ -2,6 +2,7 @@ package com.hlju.onlineshop.user.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -26,6 +27,11 @@ public class UserReceiveAddressServiceImpl extends ServiceImpl<UserReceiveAddres
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<UserReceiveAddressEntity> listByUserId(Long userId) {
+        return baseMapper.listByUserId(userId);
     }
 
 }

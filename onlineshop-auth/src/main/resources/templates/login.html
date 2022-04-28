@@ -29,10 +29,13 @@
         <img src="/static/login/JD_img/5731485aN1134b4f0.png"/>
     </div>
     <div id="sign">
-        <div class="si_top">
+        <div class="si_top" th:if="${session.errorMessage != null}">
             <p>
-                <span>网上商城不会以任何理由要求您转账汇款，谨防诈骗。</span>
+                <span style="color: red; font-size: 20px;">请登录</span>
             </p>
+        </div>
+        <div th:if="${session.errorMessage == null}" style="height: 30px; border: none;">
+
         </div>
         <div style="color: red; margin-left: 100px;"
              th:text="${errorMap != null ? (#maps.containsKey(errorMap, 'msg') ? errorMap.msg : '') : ''}">

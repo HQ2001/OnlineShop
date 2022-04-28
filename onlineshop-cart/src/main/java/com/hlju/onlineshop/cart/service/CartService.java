@@ -3,6 +3,8 @@ package com.hlju.onlineshop.cart.service;
 import com.hlju.onlineshop.cart.dto.CartDTO;
 import com.hlju.onlineshop.cart.dto.CartItemDTO;
 
+import java.util.List;
+
 /**
  * @author haoqiang
  * @email 3277427547@qq.com
@@ -50,4 +52,10 @@ public interface CartService {
      * @param skuId skuId
      */
     void deleteItem(Long skuId);
+
+    /**
+     * 获取最新的已选中的购物项
+     * @return
+     */
+    List<CartItemDTO> getUpToDateCheckedCartItems(Long userId);
 }

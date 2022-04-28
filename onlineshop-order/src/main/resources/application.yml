@@ -12,8 +12,38 @@ spring:
         server-addr: 127.0.0.1:8848
   application:
     name: onlineshop-order
+
+  rabbitmq:
+    host: 192.168.10.100
+    port: 5672
+    virtual-host: /
+    # 开启发送端消息抵达队列的确认
+    publisher-returns: true
+    template:
+      # 只要抵达队列，以异步发送优先回调returnConfirm
+      mandatory: true
+    listener:
+      simple:
+        acknowledge-mode: manual #手动ack
+
+  thymeleaf:
+    cache: false
+
+  session:
+    store-type: redis
+
+  redis:
+    host: 192.168.10.100
+    port: 6379
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
     db-config:
       id-type: auto
+
+onlineshop:
+  thread:
+    core-size: 50
+    max-size: 200
+    keep-alive-time: 10

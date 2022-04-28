@@ -1,8 +1,10 @@
 package com.hlju.onlineshop.goods.controller;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,22 @@ import com.hlju.common.utils.R;
 public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
+
+    /**
+     * 获取最新的商品价格
+     *
+     * @param skuIds skuIds
+     * @return k - skuId   v - 最新的价格
+     */
+    @GetMapping("/getUpToDatePrice")
+    public Map<Long, BigDecimal> getUpToDatePrice(@RequestParam("skuIds") List<Long> skuIds) {
+        List<SkuInfoEntity> skuInfoEntities = skuInfoService.listByIds(skuIds);
+        return skuInfoEntities.stream()
+                .collect(Collectors.toMap(
+                        SkuInfoEntity::getSkuId,
+                        SkuInfoEntity::getPrice
+                ));
+    }
 
     /**
      * 列表

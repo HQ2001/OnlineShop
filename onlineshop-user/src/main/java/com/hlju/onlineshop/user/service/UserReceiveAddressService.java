@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.user.entity.UserReceiveAddressEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,12 @@ import java.util.Map;
 public interface UserReceiveAddressService extends IService<UserReceiveAddressEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 根据用户id获取到收货地址列表
+     * @param userId userId
+     * @return 收货地址list
+     */
+    List<UserReceiveAddressEntity> listByUserId(Long userId);
 }
 

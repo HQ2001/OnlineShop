@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author haoqiang
@@ -23,4 +25,12 @@ public interface GoodsFeignService {
     @GetMapping("/goods/sku-sale-attr-value/sale-attr/string-value")
     R getSkuSaleAttrValues(@RequestParam("skuId") Long skuId);
 
+    /**
+     * 获取最新的商品价格
+     *
+     * @param skuIds skuIds
+     * @return k - skuId   v - 最新的价格
+     */
+    @GetMapping("/goods/sku-info/getUpToDatePrice")
+    Map<Long, BigDecimal> getUpToDatePrice(@RequestParam("skuIds") List<Long> skuIds);
 }

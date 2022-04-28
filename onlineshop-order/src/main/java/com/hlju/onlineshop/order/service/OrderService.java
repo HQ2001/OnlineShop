@@ -3,6 +3,7 @@ package com.hlju.onlineshop.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hlju.common.utils.PageUtils;
 import com.hlju.onlineshop.order.entity.OrderEntity;
+import com.hlju.onlineshop.order.vo.OrderConfirmVO;
 
 import java.util.Map;
 
@@ -16,5 +17,11 @@ import java.util.Map;
 public interface OrderService extends IService<OrderEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 返回订单确认页用到的数据
+     * @return
+     */
+    OrderConfirmVO getConfirmOrder() throws InterruptedException;
 }
 

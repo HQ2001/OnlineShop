@@ -1,6 +1,7 @@
 package com.hlju.onlineshop.user.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import com.hlju.common.utils.R;
  * @date 2022-03-14 09:58:06
  */
 @RestController
-@RequestMapping("/user/userreceiveaddress")
+@RequestMapping("/user/user-receive-address")
 public class UserReceiveAddressController {
     @Autowired
     private UserReceiveAddressService userReceiveAddressService;
@@ -32,6 +33,12 @@ public class UserReceiveAddressController {
         PageUtils page = userReceiveAddressService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+    @GetMapping("/addresses/{userId}")
+    public R getAddressesByUserId(@PathVariable("userId") Long userId) {
+        List<UserReceiveAddressEntity> addresses = userReceiveAddressService.listByUserId(userId);
+        return R.ok().put("addresses", addresses);
     }
 
 

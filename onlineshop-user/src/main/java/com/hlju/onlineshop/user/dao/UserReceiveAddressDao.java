@@ -3,6 +3,9 @@ package com.hlju.onlineshop.user.dao;
 import com.hlju.onlineshop.user.entity.UserReceiveAddressEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 会员收货地址
@@ -14,4 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserReceiveAddressDao extends BaseMapper<UserReceiveAddressEntity> {
 
+    List<UserReceiveAddressEntity> listByUserId(@Param("userId") Long userId);
 }

@@ -53,7 +53,9 @@ public class CartDTO {
         BigDecimal amount = new BigDecimal("0");
         if (CollectionUtils.isNotEmpty(cartItems)) {
             for (CartItemDTO item : cartItems) {
-                amount = amount.add(item.getTotalPrice());
+                if (item.getChecked()) {
+                    amount = amount.add(item.getTotalPrice());
+                }
             }
         }
         // 减去优惠

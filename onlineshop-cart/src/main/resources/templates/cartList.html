@@ -30,7 +30,7 @@
                     <a href="http://auth.onlineshop.hlju.com/register.html" th:if="${session.loginUser == null}">免费注册</a>
                 </li>
                 <li class="spacer"></li>
-                <li><a href="">我的订单</a></li>
+                <li><a href="http://order.onlineshop.hlju.com/list.html">我的订单</a></li>
                 <li class="spacer"></li>
 
             </ul>
@@ -46,7 +46,7 @@
     <div class="one_sousuo">
         <div class="one_search_top">
             <div class="one_top_left">
-<!--                <a href="http://onlineshop.hlju.com" class="one_left_logo"><img src="/static/cart/img/logo1.jpg"></a>-->
+                <a href="http://onlineshop.hlju.com" class="one_left_logo"><img src="/static/cart/img/logo.png"></a>
                 <a href="#" class="one_left_link">购物车</a>
             </div>
             <div class="one_top_right">
@@ -163,7 +163,7 @@
 
 <div class="One_isDel">
     <p>
-        <span>删除</span><span><img src="/static/cart/img/错误.png" alt=""></span>
+        <span>&nbsp;&nbsp;删除</span><span class="cancelBtn"><img src="/static/cart/img/错误.png" alt=""></span>
     </p>
     <div>
         <dl>
@@ -230,7 +230,7 @@
         $(".allCheck").attr("checked", false);
     }
     function toTrade() {
-        window.location.href = "http://cart.onlineshop.hlju.com/toTrade";
+        window.location.href = "http://order.onlineshop.hlju.com/toTrade";
     }
 
     function toItem(skuId) {
@@ -255,28 +255,6 @@
         });
 
     }
-
-    //封装总价钱函数
-    function sumSumPrice() {
-        //         var zzj=0;
-        //         $(".check").each(function () {
-        //             if($(this).prop("checked")){
-        //                 var zj = $(this).parents("ol").find(".zj").html().substring(1);
-        //                 zzj=zzj+parseFloat(zj);
-        //             }
-        //             $(".fnt").html("￥"+zzj+".00")
-        //         });
-    }
-
-    /*    //购物车结算固定定位
-        $(document).scroll(function(){
-            if($(window).scrollTop()>50){
-                $(".fix").hide();
-            }else{
-                $(".fix").show();
-            }
-        })*/
-
 
     //购物车顶端tab
     $(".One_Topleft span:last-child").mouseover(function () {
@@ -463,8 +441,8 @@
         }
     })
     //删除已选的商品
-    $(".One_ShopFootBuy>div:first-child ul li:nth-child(2)").click(function () {
-        // $(".check").each(function(){
+    $(".deleteItemBtn").click(function () {
+        deleteId = $(this).attr("skuId");
         if ($(".check").is(":checked") == false) {
             $(".One_mb").show();
             $(".One_moveGzIfNull").show();
@@ -473,26 +451,6 @@
             $(".One_isDel").show(); //删除弹框显示
             $(".One_moveGzIfNull").hide();
         }
-        //移除结账固定定位
-        // if($(".check").length==1){
-        // 	$(".fix").remove();
-        // }
-        // })
-        //var that=$(this);
-        //确定删除
-        /*      $(".One_isDel>div:last-child button:first-child").click(function(){
-                  $(".One_mb").hide();    //蒙版隐藏
-                  $(".One_isDel").hide(); //删除弹框隐藏
-                  $(".check:checked").parent().parent().parent().parent().remove();  //删除选中商品
-                  if($(".fix").offset().top>$(".fix1").offset().top){
-                      $(".fix").hide();
-                  }
-                  if($(".check").length==0){
-                      $(".allCheck").prop("checked",false);
-                      $(".sumNum").html("0");
-                      $(".fnt").html("￥ 0.00");
-                  }
-              })*/
     })
     //确定删除弹框移入我的关注
     $(".One_isDel>div:last-child button:last-child").click(function () {
@@ -514,9 +472,8 @@
         })
     })
     //点击×号关闭
-    $(".One_moveGzIfNull>p span:last-child img").click(function () {
-        $(".One_mb").hide();
-        $(".One_moveGzIfNull").hide();
+    $(".cancelBtn").click(function () {
+        $(".One_isDel").hide();
     })
     $(".One_moveMyGz>p span:last-child img").click(function () {
         $(".One_mb").hide();
@@ -562,8 +519,10 @@
         var dj = $(this).parent().parent().prev().children(".dj").html().substring(1);
         var sl = $(this).prev("span").html();
         $(this).parent().parent().parent().children("li:nth-child(5)").children(".zj").html("￥" + dj * sl + ".00")
+        let skuId = $(this).parent().attr("skuId");
+        let num = $(this).parent().find(".countOpsNum").text();
         sumSumPrice();
-
+        changeSkuNum(skuId, num);
     })
     //-
     $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(4) p:first-child span:first-child").click(function () {
@@ -577,15 +536,17 @@
         var dj = $(this).parent().parent().prev().children(".dj").html().substring(1);
         var sl = $(this).next("span").html();
         $(this).parent().parent().parent().children("li:nth-child(5)").children(".zj").html("￥" + dj * sl + ".00")
+        let skuId = $(this).parent().attr("skuId");
+        let num = $(this).parent().find(".countOpsNum").text();
         sumSumPrice();
-
+        changeSkuNum(skuId, num);
     })
     //选中当前商品背景变色
     $(".check").each(function (index) {
         $(".check").eq(cartList).click(function () {
             if ($(this).is(":checked")) {
-                $(this).parent().parent().parent().css("background", "#fff4e8");
-                $(this).parent().parent().parent().parent().children("div:last-child").css("background", "#fff4e8")
+                // $(this).parent().parent().parent().css("background", "#fff4e8");
+                // $(this).parent().parent().parent().parent().children("div:last-child").css("background", "#fff4e8")
             } else {
                 $(this).parent().parent().parent().parent().children("div:last-child").css("background", "none")
                 $(this).parent().parent().parent().css("background", "none")
@@ -622,24 +583,6 @@
         $(".One_mb").show();
         $(".One_isDel").show();
         var that = $(this);
-        //确定删除
-        /*        $(".One_isDel>div:last-child button:first-child").click(function(){
-                    $(".One_mb").hide();
-                    $(".One_isDel").hide();
-                    that.parent().parent().parent().parent().remove();
-                    // 移除结账固定定位
-                    // if($(".check").length==1){
-                    // 	$(".fix").remove();
-                    // }
-                    if($(".fix").offset().top>$(".fix1").offset().top){
-                        $(".fix").hide();
-                    }
-                    if($(".check").length==0){
-                        $(".allCheck").prop("checked",false);
-                        $(".sumNum").html("0");
-                        $(".fnt").html("￥ 0.00");
-                    }
-                })*/
     })
     $(".One_isDel>div:last-child button").mouseover(function () {
         $(this).css("cursor", "pointer");
@@ -762,17 +705,11 @@
         $(this).children("p").children("img").attr("src", "/static/cart/img/one_mian_gwc1.png")
     })
 
-    $(".countOpsBtn").click(function () {
-        let skuId = $(this).parent().attr("skuId");
-        let num = $(this).parent().find(".countOpsNum").text();
+    function changeSkuNum (skuId, num) {
         location.href = "http://cart.onlineshop.hlju.com/changeItemNum?skuId=" + skuId + "&num=" + num;
-    })
+    }
 
     var deleteId = 0;
-
-    $(".deleteItemBtn").click(function () {
-        deleteId = $(this).attr("skuId");
-    })
 
     function deleteItem() {
         location.href = "http://cart.onlineshop.hlju.com/deleteItem?skuId=" + deleteId;

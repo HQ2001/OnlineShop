@@ -1,20 +1,17 @@
-package com.hlju.onlineshop.cart.dto;
+package com.hlju.onlineshop.order.vo;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 购物项
- *
  * @author haoqiang
  * @email 3277427547@qq.com
- * @date 2022/4/23 20:19
+ * @date 2022/4/26 9:50
  */
 @Data
-public class CartItemDTO implements Serializable {
+public class OrderItemVO {
 
     /**
      * 商品id
@@ -25,11 +22,6 @@ public class CartItemDTO implements Serializable {
      * 标题
      */
     private String title;
-
-    /**
-     * 是否选中，默认为true
-     */
-    private Boolean checked = true;
 
     /**
      * 图片
@@ -52,9 +44,16 @@ public class CartItemDTO implements Serializable {
     private Integer count;
 
     /**
+     * 是否有货
+     */
+    // TODO 查询是否有库存
+    private Boolean hasStock = true;
+
+    /**
      * 获取总价
      */
     public BigDecimal getTotalPrice() {
         return this.price.multiply(new BigDecimal(String.valueOf(this.count)));
     }
+
 }
