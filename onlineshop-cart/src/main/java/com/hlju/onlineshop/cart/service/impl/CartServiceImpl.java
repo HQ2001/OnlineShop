@@ -60,6 +60,7 @@ public class CartServiceImpl implements CartService {
             CartItemDTO cartItemDTO = JSON.parseObject(cart, CartItemDTO.class);
             cartItemDTO.setCount(cartItemDTO.getCount() + num);
             cartOps.put(skuId.toString(), JSON.toJSONString(cartItemDTO));
+            return;
         }
         // sku基本信息
         CountDownLatch countDownLatch = new CountDownLatch(2);

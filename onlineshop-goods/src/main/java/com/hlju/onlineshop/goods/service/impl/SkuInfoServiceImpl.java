@@ -4,6 +4,7 @@ import com.hlju.onlineshop.goods.entity.SkuImagesEntity;
 import com.hlju.onlineshop.goods.entity.SpuInfoEntity;
 import com.hlju.onlineshop.goods.service.*;
 import com.hlju.onlineshop.goods.vo.SkuInfoDetailVO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -25,6 +26,7 @@ import com.hlju.onlineshop.goods.dao.SkuInfoDao;
 import com.hlju.onlineshop.goods.entity.SkuInfoEntity;
 
 
+@Slf4j
 @Service("skuInfoService")
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> implements SkuInfoService {
 
@@ -110,6 +112,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             SkuInfoEntity skuInfoEntity = baseMapper.selectById(skuId);
             vo.setSkuInfoEntity(skuInfoEntity);
             countDownLatch.countDown();
+            log.debug("1.sku基本信息查询成功。。");
             return skuInfoEntity;
         }, executor);
 
@@ -118,6 +121,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             SpuInfoEntity spuInfoEntity = spuInfoService.getById(res.getSpuId());
             vo.setSpuDescriptionImages(spuInfoEntity.getDescriptionImages());
             countDownLatch.countDown();
+            log.debug("2.spu介绍（图片）查询成功。。");
         }, executor);
 
         infoFuture.thenAcceptAsync(res -> {
@@ -125,12 +129,15 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             List<SkuInfoDetailVO.SaleAttrVO> saleAttrs = saleAttrValueService.getSaleAttrsBySpuId(res.getSpuId());
             vo.setSaleAttrs(saleAttrs);
             countDownLatch.countDown();
+            log.debug("3.spu销售属性组合(其他sku)查询成功。。");
         }, executor);
 
         infoFuture.thenAcceptAsync(res -> {
             // spu的规格参数信息(基础属性，属性组-属性)
             List<SkuInfoDetailVO.AttrGroupVO> attrGroups = attrGroupService.getAttrGroupWithAttrsBySpuId(res.getSpuId());
+            log.debug("attrGroups {}", attrGroups);
             vo.setAttrGroups(attrGroups);
+            log.debug("4.spu的规格参数信息查询成功。。");
             countDownLatch.countDown();
         }, executor);
 
@@ -139,6 +146,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             List<SkuImagesEntity> skuImages = skuImagesService.listBySkuId(skuId);
             vo.setSkuImages(skuImages);
             countDownLatch.countDown();
+            log.debug("5.sku图片信息查询成功。。");
         }, executor);
         try {
             countDownLatch.await();

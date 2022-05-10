@@ -133,6 +133,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
                 .collect(Collectors.toMap(GoodAttrValueEntity::getAttrId, item -> item));
         // 根据查出来的属性id去【属性、属性分组】表中查出相应的分组id
         List<AttrAttrGroupRelationEntity> relations = relationDao.listByAttrIds(Lists.newArrayList(attrIdMap.keySet()));
+        if (CollectionUtils.isEmpty(relations)) {
+            return Lists.newArrayList();
+        }
         Map<Long, List<Long>> attrGroupIdAndAttrIdsMap = relations.stream()
                 .collect(Collectors.groupingBy(
                         AttrAttrGroupRelationEntity::getAttrGroupId,

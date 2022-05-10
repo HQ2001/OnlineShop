@@ -132,7 +132,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         // 保存spu对应的sku信息
         List<SkuDTO> skus = spuSaveDto.getSkus();
-        // 要保存的其他信息，遍历每个sku时进行手机，最后批量保存
+        // 要保存的其他信息，遍历每个sku时进行收集，最后批量保存
         List<SkuImagesEntity> allSkuImages = new ArrayList<>();
         List<SkuSaleAttrValueEntity> allSkuSaleAttrValues = new ArrayList<>();
 
